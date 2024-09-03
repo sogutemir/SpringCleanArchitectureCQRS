@@ -18,6 +18,18 @@ public class ProductMapper {
                 .build();
     }
 
+    public static ProductDTO toDTO(Product product) {
+        if (product == null) {
+            return null;
+        }
+        return ProductDTO.builder()
+                .name(product.getName())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .stockQuantity(product.getStockQuantity())
+                .build();
+    }
+
     public static void partialUpdate(ProductDTO productDTO, Product product) {
         if (productDTO == null || product == null) {
             return;
