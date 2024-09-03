@@ -4,8 +4,8 @@ import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.Ord
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrderMapper {
 
@@ -20,7 +20,21 @@ public class OrderMapper {
                 .build();
     }
 
-    public static void partialUpdate(OrderDTO orderDTO, Order order) {
+    public static OrderDTO toDTO(Order order) {
+        if (order == null) {
+            return null;
+        }
+        return OrderDTO.builder()
+                .userId(order.getUser().getId())
+                .totalAmount(order.getTotalAmount())
+                .productIds(order.getProducts() != null ?
+                        order.getProducts().stream()
+                                .map(Product::getId)
+                                .collect(Collectors.toList()) : null)
+                .build();
+    }
+
+    public static void partialUpdate(OrderDTO orderDTO, Order order, List<Product> products) {
         if (orderDTO == null || order == null) {
             return;
         }
@@ -30,9 +44,8 @@ public class OrderMapper {
         if (orderDTO.getTotalAmount() != null) {
             order.setTotalAmount(orderDTO.getTotalAmount());
         }
-        if (orderDTO.getProductIds() != null) {
-            // Şimdilik bu kısım boş bırakıldı clean architecture prensiplerine uygun olması için.
-            // Sonradan ProductService çağırarak doldurulacak.
+        if (orderDTO.getProductIds() != null && products != null) {
+            order.setProducts(products);
         }
     }
 }

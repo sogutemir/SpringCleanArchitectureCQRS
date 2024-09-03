@@ -17,7 +17,10 @@ public class OrderResponseMapper {
                 .userId(order.getUser().getId())
                 .totalAmount(order.getTotalAmount())
                 .orderStatus(order.getOrderStatus().name())
-                .products(order.getProducts() != null ? order.getProducts().stream().map(ProductResponseMapper::toDTO).collect(Collectors.toList()) : null)
+                .products(order.getProducts() != null ?
+                        order.getProducts().stream()
+                                .map(ProductResponseMapper::toDTO)
+                                .collect(Collectors.toList()) : null)
                 .build();
     }
 }

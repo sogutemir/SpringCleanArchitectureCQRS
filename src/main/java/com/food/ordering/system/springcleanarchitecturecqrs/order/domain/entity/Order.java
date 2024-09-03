@@ -1,6 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.common.entity.BaseEntity;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.enums.OrderStatus;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;

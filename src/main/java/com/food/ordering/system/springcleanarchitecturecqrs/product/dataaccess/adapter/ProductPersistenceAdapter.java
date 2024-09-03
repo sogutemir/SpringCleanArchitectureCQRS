@@ -23,6 +23,11 @@ public class ProductPersistenceAdapter {
         return productQueryRepository.findById(id);
     }
 
+
+    public List<Product> findAllByIds(List<Long> ids) {
+        return productQueryRepository.findAllById(ids);
+    }
+
     public List<Product> findByNameContaining(String name) {
         return productQueryRepository.findByNameContaining(name);
     }
