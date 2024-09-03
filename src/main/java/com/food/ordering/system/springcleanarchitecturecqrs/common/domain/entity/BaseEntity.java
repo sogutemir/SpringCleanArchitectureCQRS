@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.common.entity;
+package com.food.ordering.system.springcleanarchitecturecqrs.common.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

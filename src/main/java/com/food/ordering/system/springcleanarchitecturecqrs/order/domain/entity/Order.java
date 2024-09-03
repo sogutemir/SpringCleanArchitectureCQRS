@@ -1,6 +1,6 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.common.entity.BaseEntity;
+import com.food.ordering.system.springcleanarchitecturecqrs.common.domain.entity.BaseEntity;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.enums.OrderStatus;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
@@ -41,7 +41,7 @@ public class Order extends BaseEntity {
     private List<Product> products;
 
     @DecimalMin(value = "0.0", inclusive = false, message = "Total amount cannot be less than zero")
-    private BigDecimal totalAmount;
+    private BigDecimal totalAmount = BigDecimal.ZERO;
 
     @NotNull(message = "Order status cannot be null")
     @Enumerated(EnumType.STRING)

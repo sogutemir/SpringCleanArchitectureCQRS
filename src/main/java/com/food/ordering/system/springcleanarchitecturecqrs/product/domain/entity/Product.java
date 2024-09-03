@@ -1,6 +1,6 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.common.entity.BaseEntity;
+import com.food.ordering.system.springcleanarchitecturecqrs.common.domain.entity.BaseEntity;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.enums.ProductStatus;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
@@ -32,7 +32,7 @@ public class Product extends BaseEntity {
     private String description;
 
     @DecimalMin(value = "0.0", inclusive = false, message = "Price cannot be less than zero")
-    private BigDecimal price;
+    private BigDecimal price = BigDecimal.ZERO;
 
     @Min(value = 0, message = "Stock quantity cannot be less than zero")
     private Integer stockQuantity;

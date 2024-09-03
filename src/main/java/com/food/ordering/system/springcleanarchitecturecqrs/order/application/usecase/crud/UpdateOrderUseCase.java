@@ -1,12 +1,14 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.crud;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.exception.OrderNotFoundException;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.application.helper.OrderValidationHelper;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
+import com.food.ordering.system.springcleanarchitecturecqrs.common.application.service.ProductValidationService;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.service.OrderCalculationService;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDTO;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -15,16 +17,13 @@ import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class UpdateOrderUseCase {
 
     private final OrderPersistenceAdapter orderPersistenceAdapter;
-    private final OrderValidationHelper orderValidationHelper;
-
-    public UpdateOrderUseCase(OrderPersistenceAdapter orderPersistenceAdapter, OrderValidationHelper orderValidationHelper) {
-        this.orderPersistenceAdapter = orderPersistenceAdapter;
-        this.orderValidationHelper = orderValidationHelper;
-    }
+    private final ProductValidationService productValidationService;
+    private final OrderCalculationService orderCalculationService;
 
     public Optional<OrderDTO> execute(Long id, OrderDTO orderDTO, Map<Long, Integer> productIdQuantityMap) {
         try {
@@ -34,9 +33,8 @@ public class UpdateOrderUseCase {
             if (existingOrder.isPresent()) {
                 Order order = existingOrder.get();
 
-                List<Product> products = orderValidationHelper.validateProductsExistAndStock(productIdQuantityMap);
-
-                order.setTotalAmount(orderValidationHelper.calculateTotalAmount(products, productIdQuantityMap));
+                List<Product> products = productValidationService.validateProductsExistAndStock(productIdQuantityMap);
+                order.setTotalAmount(orderCalculationService.calculateTotalAmount(products, productIdQuantityMap));
 
                 OrderMapper.partialUpdate(orderDTO, order, products);
                 Order updatedOrder = orderPersistenceAdapter.save(order);

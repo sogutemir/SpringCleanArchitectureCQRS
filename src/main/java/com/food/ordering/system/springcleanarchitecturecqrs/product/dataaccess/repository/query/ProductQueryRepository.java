@@ -14,4 +14,7 @@ public interface ProductQueryRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p WHERE p.productStatus = :status")
     List<Product> findByProductStatus(@Param("status") String status);
+
+    @Query("SELECT p FROM Product p WHERE p.id IN :ids")
+    List<Product> findAllByIds(@Param("ids") List<Long> ids);
 }

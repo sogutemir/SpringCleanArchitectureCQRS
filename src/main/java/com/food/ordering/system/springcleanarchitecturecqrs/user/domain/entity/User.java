@@ -1,6 +1,6 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.common.entity.BaseEntity;
+import com.food.ordering.system.springcleanarchitecturecqrs.common.domain.entity.BaseEntity;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.entity.Notification;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
@@ -36,7 +36,7 @@ public class User extends BaseEntity {
     private String email;
 
     @DecimalMin(value = "0.0", inclusive = false, message = "Money cannot be less than zero")
-    private BigDecimal money;
+    private BigDecimal money = BigDecimal.ZERO;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
@@ -47,8 +47,4 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private List<Notification> notifications;
 
-    protected void onCreate() {
-        super.onCreate();
-        this.money = BigDecimal.ZERO;
-    }
 }
