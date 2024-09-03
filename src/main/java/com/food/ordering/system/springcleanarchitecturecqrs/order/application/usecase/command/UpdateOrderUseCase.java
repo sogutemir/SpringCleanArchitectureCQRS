@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.crud;
+package com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.exception.OrderNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;

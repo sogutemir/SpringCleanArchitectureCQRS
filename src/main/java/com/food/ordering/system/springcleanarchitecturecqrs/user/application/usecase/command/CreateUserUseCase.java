@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.crud;
+package com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDTO;

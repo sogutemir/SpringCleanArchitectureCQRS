@@ -1,9 +1,9 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.user.application.service.command.impl;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.service.command.UserCommandService;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.crud.CreateUserUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.crud.DeleteUserUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.crud.UpdateUserUseCase;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command.CreateUserUseCase;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command.DeleteUserUseCase;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command.UpdateUserUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

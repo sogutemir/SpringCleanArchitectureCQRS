@@ -1,9 +1,9 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.application.service.command.impl;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.service.command.ProductCommandService;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.crud.CreateProductUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.crud.DeleteProductUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.crud.UpdateProductUseCase;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.command.CreateProductUseCase;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.command.DeleteProductUseCase;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.command.UpdateProductUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
