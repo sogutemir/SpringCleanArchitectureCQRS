@@ -16,6 +16,17 @@ public class UserMapper {
                 .build();
     }
 
+    public static UserDTO toDTO(User user) {
+        if (user == null) {
+            return null;
+        }
+        return UserDTO.builder()
+                .name(user.getName())
+                .email(user.getEmail())
+                .money(user.getMoney())
+                .build();
+    }
+
     public static void partialUpdate(UserDTO userDTO, User user) {
         if (userDTO == null || user == null) {
             return;

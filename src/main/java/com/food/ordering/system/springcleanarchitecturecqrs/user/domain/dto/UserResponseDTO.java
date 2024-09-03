@@ -1,8 +1,8 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.application.dto.notification.NotificationResponseDTO;
-import com.food.ordering.system.springcleanarchitecturecqrs.application.dto.order.OrderResponseDTO;
-import com.food.ordering.system.springcleanarchitecturecqrs.application.dto.product.ProductResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.NotificationResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDTO;
 import lombok.*;
 
 import java.math.BigDecimal;
