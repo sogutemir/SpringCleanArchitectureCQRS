@@ -4,7 +4,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.ada
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDTO;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderMapper;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.service.OrderCalculationService;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.helper.OrderCalculationHelper;
 import com.food.ordering.system.springcleanarchitecturecqrs.common.application.service.ProductValidationService;
 import com.food.ordering.system.springcleanarchitecturecqrs.common.application.service.UserValidationService;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
@@ -25,7 +25,7 @@ public class CreateOrderUseCase {
     private final OrderPersistenceAdapter orderPersistenceAdapter;
     private final UserValidationService userValidationService;
     private final ProductValidationService productValidationService;
-    private final OrderCalculationService orderCalculationService;
+    private final OrderCalculationHelper orderCalculationHelper;
 
     public OrderDTO execute(OrderDTO orderDTO, Map<Long, Integer> productIdQuantityMap) {
         try {
@@ -33,7 +33,7 @@ public class CreateOrderUseCase {
 
             User user = userValidationService.validateUserExists(orderDTO.getUserId());
             List<Product> products = productValidationService.validateProductsExistAndStock(productIdQuantityMap);
-            BigDecimal totalAmount = orderCalculationService.calculateTotalAmount(products, productIdQuantityMap);
+            BigDecimal totalAmount = orderCalculationHelper.calculateTotalAmount(products, productIdQuantityMap);
 
             Order order = OrderMapper.toEntity(orderDTO, products);
             order.setTotalAmount(totalAmount);

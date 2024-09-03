@@ -3,7 +3,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.order.application.u
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.exception.OrderNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.common.application.service.ProductValidationService;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.service.OrderCalculationService;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.helper.OrderCalculationHelper;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDTO;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderMapper;
@@ -23,7 +23,7 @@ public class UpdateOrderUseCase {
 
     private final OrderPersistenceAdapter orderPersistenceAdapter;
     private final ProductValidationService productValidationService;
-    private final OrderCalculationService orderCalculationService;
+    private final OrderCalculationHelper orderCalculationHelper;
 
     public Optional<OrderDTO> execute(Long id, OrderDTO orderDTO, Map<Long, Integer> productIdQuantityMap) {
         try {
@@ -34,7 +34,7 @@ public class UpdateOrderUseCase {
                 Order order = existingOrder.get();
 
                 List<Product> products = productValidationService.validateProductsExistAndStock(productIdQuantityMap);
-                order.setTotalAmount(orderCalculationService.calculateTotalAmount(products, productIdQuantityMap));
+                order.setTotalAmount(orderCalculationHelper.calculateTotalAmount(products, productIdQuantityMap));
 
                 OrderMapper.partialUpdate(orderDTO, order, products);
                 Order updatedOrder = orderPersistenceAdapter.save(order);

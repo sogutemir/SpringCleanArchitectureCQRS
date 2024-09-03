@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.order.domain.service;
+package com.food.ordering.system.springcleanarchitecturecqrs.order.application.helper;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Slf4j
 @Component
-public class OrderCalculationService {
+public class OrderCalculationHelper {
 
     public BigDecimal calculateTotalAmount(List<Product> products, Map<Long, Integer> productIdQuantityMap) {
         log.info("Calculating total amount for products: {}", productIdQuantityMap.keySet());
