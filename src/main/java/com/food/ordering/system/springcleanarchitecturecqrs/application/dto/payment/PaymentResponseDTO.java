@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.application.dto;
+package com.food.ordering.system.springcleanarchitecturecqrs.application.dto.payment;
 
 import lombok.*;
 import java.math.BigDecimal;

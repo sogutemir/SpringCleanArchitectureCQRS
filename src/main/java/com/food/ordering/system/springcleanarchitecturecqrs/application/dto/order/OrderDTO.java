@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.application.dto;
+package com.food.ordering.system.springcleanarchitecturecqrs.application.dto.order;
 
 import jakarta.validation.constraints.*;
 import lombok.*;

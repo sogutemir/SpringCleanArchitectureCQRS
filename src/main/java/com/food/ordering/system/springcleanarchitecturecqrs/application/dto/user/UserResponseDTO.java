@@ -1,5 +1,8 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.application.dto;
+package com.food.ordering.system.springcleanarchitecturecqrs.application.dto.user;
 
+import com.food.ordering.system.springcleanarchitecturecqrs.application.dto.notification.NotificationResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.application.dto.order.OrderResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.application.dto.product.ProductResponseDTO;
 import lombok.*;
 
 import java.math.BigDecimal;
