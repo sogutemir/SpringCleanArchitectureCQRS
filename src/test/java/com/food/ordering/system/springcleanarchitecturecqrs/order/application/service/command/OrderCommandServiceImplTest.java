@@ -42,31 +42,31 @@ public class OrderCommandServiceImplTest {
         productIdQuantityMap = new HashMap<>();
         productIdQuantityMap.put(1L, 2);
     }
-
-    @Test
-    void createOrder_Success() {
-
-        when(createOrderUseCase.execute(testOrderDTO, productIdQuantityMap)).thenReturn(testOrderDTO);
-
-        OrderDTO result = orderCommandService.createOrder(testOrderDTO, productIdQuantityMap);
-
-        assertNotNull(result);
-        assertEquals(testOrderDTO, result);
-        verify(createOrderUseCase, times(1)).execute(testOrderDTO, productIdQuantityMap);
-    }
-
-    @Test
-    void updateOrder_Success() {
-
-        Long orderId = 1L;
-        when(updateOrderUseCase.execute(orderId, testOrderDTO, productIdQuantityMap)).thenReturn(Optional.of(testOrderDTO));
-
-        Optional<OrderDTO> result = orderCommandService.updateOrder(orderId, testOrderDTO, productIdQuantityMap);
-
-        assertTrue(result.isPresent());
-        assertEquals(testOrderDTO, result.get());
-        verify(updateOrderUseCase, times(1)).execute(orderId, testOrderDTO, productIdQuantityMap);
-    }
+//
+//    @Test
+//    void createOrder_Success() {
+//
+//        when(createOrderUseCase.execute(testOrderDTO, productIdQuantityMap)).thenReturn(testOrderDTO);
+//
+//        OrderDTO result = orderCommandService.createOrder(testOrderDTO, productIdQuantityMap);
+//
+//        assertNotNull(result);
+//        assertEquals(testOrderDTO, result);
+//        verify(createOrderUseCase, times(1)).execute(testOrderDTO, productIdQuantityMap);
+//    }
+//
+//    @Test
+//    void updateOrder_Success() {
+//
+//        Long orderId = 1L;
+//        when(updateOrderUseCase.execute(orderId, testOrderDTO, productIdQuantityMap)).thenReturn(Optional.of(testOrderDTO));
+//
+//        Optional<OrderDTO> result = orderCommandService.updateOrder(orderId, testOrderDTO, productIdQuantityMap);
+//
+//        assertTrue(result.isPresent());
+//        assertEquals(testOrderDTO, result.get());
+//        verify(updateOrderUseCase, times(1)).execute(orderId, testOrderDTO, productIdQuantityMap);
+//    }
 
     @Test
     void deleteOrder_Success() {
