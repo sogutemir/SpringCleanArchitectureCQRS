@@ -15,6 +15,18 @@ public class PaymentMapper {
                 .user(User.builder().id(paymentDTO.getUserId()).build())
                 .order(Order.builder().id(paymentDTO.getOrderId()).build())
                 .amount(paymentDTO.getAmount())
+                .isApproved(true)
+                .build();
+    }
+
+    public static PaymentDTO toDTO(Payment payment) {
+        if (payment == null) {
+            return null;
+        }
+        return PaymentDTO.builder()
+                .userId(payment.getUser().getId())
+                .orderId(payment.getOrder().getId())
+                .amount(payment.getAmount())
                 .build();
     }
 

@@ -20,6 +20,5 @@ public class UserResponseDTO {
     private String email;
     private BigDecimal money;
     private List<OrderResponseDTO> orders;
-    private List<ProductResponseDTO> products;
     private List<NotificationResponseDTO> notifications;
 }

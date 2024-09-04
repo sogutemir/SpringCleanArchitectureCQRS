@@ -1,5 +1,6 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command;
 
+import com.food.ordering.system.springcleanarchitecturecqrs.common.application.utility.ProductIdQuantityMapParser;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.exception.OrderNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.common.application.service.ProductValidationService;
@@ -26,16 +27,17 @@ public class UpdateOrderUseCase {
     private final ProductValidationService productValidationService;
     private final OrderCalculationHelper orderCalculationHelper;
 
-    public Optional<OrderDTO> execute(Long id, OrderDTO orderDTO, Map<Long, Integer> productIdQuantityMap) {
+    public Optional<OrderDTO> execute(Long id, OrderDTO orderDTO, Map<String, String>productIdQuantityMap) {
         try {
             log.info("Updating order with id: {}", id);
             Optional<Order> existingOrder = orderPersistenceAdapter.findById(id);
+            Map<Long, Integer> parsedProductIdQuantityMap = ProductIdQuantityMapParser.parse(productIdQuantityMap);
 
             if (existingOrder.isPresent()) {
-                List<Product> products = productValidationService.validateProductsExistAndStock(productIdQuantityMap);
-                BigDecimal totalAmount = orderCalculationHelper.calculateTotalAmount(products, productIdQuantityMap);
+                List<Product> products = productValidationService.validateProductsExistAndStock(parsedProductIdQuantityMap);
+                BigDecimal totalAmount = orderCalculationHelper.calculateTotalAmount(products, parsedProductIdQuantityMap);
 
-                Order updatedOrder = OrderMapper.toEntity(orderDTO, productIdQuantityMap, totalAmount);
+                Order updatedOrder = OrderMapper.toEntity(orderDTO, parsedProductIdQuantityMap, totalAmount);
                 updatedOrder.setId(id);
                 updatedOrder = orderPersistenceAdapter.save(updatedOrder);
 

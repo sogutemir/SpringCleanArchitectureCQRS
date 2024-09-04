@@ -37,10 +37,6 @@ public class Product extends BaseEntity {
     @Min(value = 0, message = "Stock quantity cannot be less than zero")
     private Integer stockQuantity;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
     @ManyToMany(mappedBy = "products")
     private List<Order> orders;
 

@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface OrderCommandService {
 
-    OrderDTO createOrder(OrderDTO orderDTO, Map<Long, Integer> productIdQuantityMap);
+    OrderDTO createOrder(OrderDTO orderDTO, Map<String, String> productIdQuantityMap);
 
-    Optional<OrderDTO> updateOrder(Long id, OrderDTO orderDTO, Map<Long, Integer> productIdQuantityMap);
+    Optional<OrderDTO> updateOrder(Long id, OrderDTO orderDTO, Map<String, String> productIdQuantityMap);
 
     void deleteOrder(Long id);
 }

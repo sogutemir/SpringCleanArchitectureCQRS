@@ -29,13 +29,13 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     }
 
     @Override
-    public OrderDTO createOrder(OrderDTO orderDTO, Map<Long, Integer> productIdQuantityMap) {
+    public OrderDTO createOrder(OrderDTO orderDTO, Map<String, String> productIdQuantityMap) {
         log.info("Creating a new order for userId: {}", orderDTO.getUserId());
         return createOrderUseCase.execute(orderDTO, productIdQuantityMap);
     }
 
     @Override
-    public Optional<OrderDTO> updateOrder(Long id, OrderDTO orderDTO, Map<Long, Integer> productIdQuantityMap) {
+    public Optional<OrderDTO> updateOrder(Long id, OrderDTO orderDTO, Map<String, String>productIdQuantityMap) {
         log.info("Updating order with id: {}", id);
         return updateOrderUseCase.execute(id, orderDTO, productIdQuantityMap);
     }

@@ -42,9 +42,6 @@ public class User extends BaseEntity {
     private List<Order> orders;
 
     @OneToMany(mappedBy = "user")
-    private List<Product> products;
-
-    @OneToMany(mappedBy = "user")
     private List<Notification> notifications;
 
 }

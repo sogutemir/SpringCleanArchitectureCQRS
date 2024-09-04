@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/orders/command")
@@ -22,13 +23,19 @@ public class OrderCommandController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderDTO orderDTO, @RequestParam Map<Long, Integer> productIdQuantityMap) {
+    public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderDTO orderDTO, @RequestParam Map<String, String> productIdQuantityMap) {
+        if (productIdQuantityMap.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         OrderDTO createdOrder = orderCommandService.createOrder(orderDTO, productIdQuantityMap);
         return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderDTO> updateOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO, @RequestParam Map<Long, Integer> productIdQuantityMap) {
+    public ResponseEntity<OrderDTO> updateOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO, @RequestParam Map<String, String> productIdQuantityMap) {
+        if (productIdQuantityMap.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         Optional<OrderDTO> updatedOrder = orderCommandService.updateOrder(id, orderDTO, productIdQuantityMap);
         return updatedOrder.map(order -> new ResponseEntity<>(order, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
