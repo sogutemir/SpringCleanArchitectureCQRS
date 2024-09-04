@@ -8,4 +8,5 @@ public class OrderNotFoundException extends RuntimeException {
     super("Order with id " + id + " not found.");
     log.error("Order with id {} not found.", id);
   }
+
 }

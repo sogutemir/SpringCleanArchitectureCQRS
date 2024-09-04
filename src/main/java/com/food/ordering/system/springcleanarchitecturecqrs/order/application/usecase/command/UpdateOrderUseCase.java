@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -31,15 +32,14 @@ public class UpdateOrderUseCase {
             Optional<Order> existingOrder = orderPersistenceAdapter.findById(id);
 
             if (existingOrder.isPresent()) {
-                Order order = existingOrder.get();
-
                 List<Product> products = productValidationService.validateProductsExistAndStock(productIdQuantityMap);
-                order.setTotalAmount(orderCalculationHelper.calculateTotalAmount(products, productIdQuantityMap));
+                BigDecimal totalAmount = orderCalculationHelper.calculateTotalAmount(products, productIdQuantityMap);
 
-                OrderMapper.partialUpdate(orderDTO, order, products);
-                Order updatedOrder = orderPersistenceAdapter.save(order);
+                Order updatedOrder = OrderMapper.toEntity(orderDTO, productIdQuantityMap, totalAmount);
+                updatedOrder.setId(id);
+                updatedOrder = orderPersistenceAdapter.save(updatedOrder);
+
                 log.info("Order updated successfully with id: {}", updatedOrder.getId());
-
                 return Optional.of(OrderMapper.toDTO(updatedOrder));
             } else {
                 throw new OrderNotFoundException(id);

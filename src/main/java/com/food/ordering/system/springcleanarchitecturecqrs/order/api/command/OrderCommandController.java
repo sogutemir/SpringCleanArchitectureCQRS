@@ -1,7 +1,9 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.api.command;
 
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.exception.OrderNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.service.command.OrderCommandService;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDTO;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,7 @@ public class OrderCommandController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO orderDTO, @RequestParam Map<Long, Integer> productIdQuantityMap) {
+    public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderDTO orderDTO, @RequestParam Map<Long, Integer> productIdQuantityMap) {
         OrderDTO createdOrder = orderCommandService.createOrder(orderDTO, productIdQuantityMap);
         return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
     }
@@ -34,7 +36,11 @@ public class OrderCommandController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
-        orderCommandService.deleteOrder(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            orderCommandService.deleteOrder(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (OrderNotFoundException e) {
+            throw new OrderNotFoundException(id);
+        }
     }
 }
