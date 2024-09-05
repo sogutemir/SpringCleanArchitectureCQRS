@@ -1,6 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.producer.OrderEventProducer;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.message.SendOrderEventUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
@@ -26,14 +27,19 @@ public class CreateOrderUseCase {
     private final UserValidationService userValidationService;
     private final ProductValidationService productValidationService;
     private final OrderCalculationHelper orderCalculationHelper;
-    private final OrderEventProducer orderEventProducer;
+    private final SendOrderEventUseCase sendOrderEventUseCase;
 
-    public CreateOrderUseCase(OrderPersistenceAdapter orderPersistenceAdapter, UserValidationService userValidationService, ProductValidationService productValidationService, OrderCalculationHelper orderCalculationHelper, OrderEventProducer orderEventProducer) {
+    public CreateOrderUseCase(
+            OrderPersistenceAdapter orderPersistenceAdapter,
+            UserValidationService userValidationService,
+            ProductValidationService productValidationService,
+            OrderCalculationHelper orderCalculationHelper,
+            SendOrderEventUseCase sendOrderEventUseCase) {
         this.orderPersistenceAdapter = orderPersistenceAdapter;
         this.userValidationService = userValidationService;
         this.productValidationService = productValidationService;
         this.orderCalculationHelper = orderCalculationHelper;
-        this.orderEventProducer = orderEventProducer;
+        this.sendOrderEventUseCase = sendOrderEventUseCase;
     }
 
     public OrderDto execute(OrderDto orderDTO, Map<Long, Integer> productIdQuantityMap) {
@@ -41,7 +47,6 @@ public class CreateOrderUseCase {
             log.info("Creating order for user with id: {}", orderDTO.getUserId());
 
             User user = userValidationService.validateUserExists(orderDTO.getUserId());
-
             List<Product> products = productValidationService.validateProductsExistAndStock(productIdQuantityMap);
             BigDecimal totalAmount = orderCalculationHelper.calculateTotalAmount(products, productIdQuantityMap);
 
@@ -49,16 +54,15 @@ public class CreateOrderUseCase {
             order.setTotalAmount(totalAmount);
 
             Order savedOrder = orderPersistenceAdapter.save(order);
-
             log.info("Order created successfully with id: {}", savedOrder.getId());
 
-            try {
-                OrderEvent orderEvent = new OrderEvent(savedOrder.getId(), savedOrder.getTotalAmount(), savedOrder.getUser().getId());
-                orderEventProducer.sendOrderEvent(orderEvent);
-                log.info("Order event sent successfully for order id: {}", savedOrder.getId());
-            } catch (Exception kafkaException) {
-                log.error("Error occurred while sending order event for order id: {}. Error: {}", savedOrder.getId(), kafkaException.getMessage(), kafkaException);
-            }
+            OrderEvent orderEvent = new OrderEvent(
+                    savedOrder.getId(),
+                    savedOrder.getTotalAmount(),
+                    savedOrder.getUser().getId(),
+                    productIdQuantityMap
+            );
+            sendOrderEventUseCase.execute(orderEvent);
 
             return OrderMapper.toDTO(savedOrder, productIdQuantityMap);
 
@@ -67,6 +71,4 @@ public class CreateOrderUseCase {
             throw e;
         }
     }
-
-
 }

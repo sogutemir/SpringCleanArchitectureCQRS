@@ -3,12 +3,15 @@ package com.food.ordering.system.springcleanarchitecturecqrs.payment.application
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.helper.PaymentHelper;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.usecase.message.PaymentCreateMessageUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.dataaccess.adapter.PaymentPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.PaymentDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.event.PaymentEvent;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.mapper.PaymentDtoToPaymentEventMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.mapper.PaymentMapper;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.message.StockUpdateMessageUseCase;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.event.StockUpdateEvent;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 import lombok.extern.slf4j.Slf4j;
@@ -27,14 +30,19 @@ public class PaymentCreateUseCase {
     private final UserPersistenceAdapter userPersistenceAdapter;
     private final OrderPersistenceAdapter orderPersistenceAdapter;
     private final PaymentCreateMessageUseCase paymentCreateMessageUseCase;
+    private final StockUpdateMessageUseCase stockUpdateMessageUseCase;
 
-    public PaymentCreateUseCase(PaymentHelper paymentHelper, PaymentPersistenceAdapter paymentPersistenceAdapter,
-                                UserPersistenceAdapter userPersistenceAdapter, OrderPersistenceAdapter orderPersistenceAdapter, PaymentCreateMessageUseCase paymentCreateMessageUseCase) {
+    public PaymentCreateUseCase(PaymentHelper paymentHelper,
+                                PaymentPersistenceAdapter paymentPersistenceAdapter,
+                                UserPersistenceAdapter userPersistenceAdapter,
+                                OrderPersistenceAdapter orderPersistenceAdapter,
+                                PaymentCreateMessageUseCase paymentCreateMessageUseCase, StockUpdateMessageUseCase stockUpdateMessageUseCase) {
         this.paymentHelper = paymentHelper;
         this.paymentPersistenceAdapter = paymentPersistenceAdapter;
         this.userPersistenceAdapter = userPersistenceAdapter;
         this.orderPersistenceAdapter = orderPersistenceAdapter;
         this.paymentCreateMessageUseCase = paymentCreateMessageUseCase;
+        this.stockUpdateMessageUseCase = stockUpdateMessageUseCase;
     }
 
     public PaymentEvent execute(PaymentDto paymentDTO) {
@@ -64,6 +72,9 @@ public class PaymentCreateUseCase {
             userPersistenceAdapter.save(user);
             orderPersistenceAdapter.save(order);
 
+            StockUpdateEvent stockUpdateEvent = new StockUpdateEvent(order.getId(), paymentDTO.getProductQuantities());
+            stockUpdateMessageUseCase.execute(stockUpdateEvent);
+
             paymentCreateMessageUseCase.execute(PaymentDtoToPaymentEventMapper.toEvent(paymentDTO));
 
             log.info("Payment completed successfully. Order id: {}", paymentDTO.getOrderId());
@@ -71,4 +82,5 @@ public class PaymentCreateUseCase {
             return new PaymentEvent(true, "Payment completed successfully.", PaymentMapper.toDTO(payment));
         }
     }
+
 }

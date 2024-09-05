@@ -6,8 +6,6 @@ import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.usecase.crud.NotificationCreateUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.NotificationDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.enums.NotificationStatus;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.event.OrderEvent;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.PaymentDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.event.PaymentEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -15,12 +13,12 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class HandlePaymentMessage {
+public class HandlePaymentNotificationMessage {
 
     private final NotificationCreateUseCase notificationCreateUseCase;
     private final ObjectMapper objectMapper;
 
-    public HandlePaymentMessage(NotificationCreateUseCase notificationCreateUseCase, ObjectMapper objectMapper) {
+    public HandlePaymentNotificationMessage(NotificationCreateUseCase notificationCreateUseCase, ObjectMapper objectMapper) {
         this.notificationCreateUseCase = notificationCreateUseCase;
         this.objectMapper = objectMapper;
     }

@@ -17,6 +17,9 @@ public class KafkaConfig {
     @Value("${spring.kafka.topic.payment-create}")
     private String paymentCreateTopic;
 
+    @Value("${spring.kafka.topic.stock-update}")
+    private String StockUpdateTopic;
+
     @Value("${spring.kafka.topic.order-update}")
     private String orderUpdateTopic;
 

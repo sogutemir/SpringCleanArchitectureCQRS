@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.payment.application.usecase.crud;
+package com.food.ordering.system.springcleanarchitecturecqrs.payment.application.usecase.message;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.producer.PaymentEventProducer;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.event.PaymentEvent;

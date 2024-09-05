@@ -32,6 +32,7 @@ public class HandleOrderMessage {
                     .orderId(orderEvent.getOrderId())
                     .userId(orderEvent.getUserId())
                     .amount(orderEvent.getTotalAmount())
+                    .productQuantities(orderEvent.getProductQuantities())
                     .build();
 
             paymentCreateUseCase.execute(paymentDTO);
@@ -39,4 +40,5 @@ public class HandleOrderMessage {
             throw new KafkaSerializationException("Failed to deserialize order message", e);
         }
     }
+
 }
