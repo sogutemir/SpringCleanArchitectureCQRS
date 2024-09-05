@@ -1,6 +1,5 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.mapper;
 
-
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.NotificationDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.entity.Notification;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
@@ -18,6 +17,7 @@ public class NotificationMapper {
                 .user(User.builder().id(notificationDTO.getUserId()).build())
                 .order(notificationDTO.getOrderId() != null ? Order.builder().id(notificationDTO.getOrderId()).build() : null)
                 .payment(notificationDTO.getPaymentId() != null ? Payment.builder().id(notificationDTO.getPaymentId()).build() : null)
+                .status(notificationDTO.getStatus())
                 .build();
     }
 
@@ -30,6 +30,7 @@ public class NotificationMapper {
                 .userId(notification.getUser().getId())
                 .orderId(notification.getOrder() != null ? notification.getOrder().getId() : null)
                 .paymentId(notification.getPayment() != null ? notification.getPayment().getId() : null)
+                .status(notification.getStatus())
                 .build();
     }
 
@@ -48,6 +49,9 @@ public class NotificationMapper {
         }
         if (notificationDTO.getPaymentId() != null) {
             notification.setPayment(Payment.builder().id(notificationDTO.getPaymentId()).build());
+        }
+        if (notificationDTO.getStatus() != null) {
+            notification.setStatus(notificationDTO.getStatus());
         }
     }
 }

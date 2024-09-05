@@ -19,6 +19,11 @@ public class NotificationCreateUseCase {
     public void execute(NotificationDto notificationDto){
         log.info("Notification create use case started. NotificationDTO: {}", notificationDto);
 
-        notificationPersistenceAdapter.save(NotificationMapper.toEntity(notificationDto));
+        try {
+            notificationPersistenceAdapter.save(NotificationMapper.toEntity(notificationDto));
+        } catch (Exception e) {
+            log.error("Error occurred while saving notification: {}", e.getMessage(), e);
+            throw new RuntimeException("Failed to save notification", e);
+        }
     }
 }

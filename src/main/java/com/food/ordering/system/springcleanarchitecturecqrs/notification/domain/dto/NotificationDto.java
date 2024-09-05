@@ -1,5 +1,6 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto;
 
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.enums.NotificationStatus;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -16,4 +17,5 @@ public class NotificationDto {
     private Long userId;
     private Long orderId;
     private Long paymentId;
+    private NotificationStatus status;
 }

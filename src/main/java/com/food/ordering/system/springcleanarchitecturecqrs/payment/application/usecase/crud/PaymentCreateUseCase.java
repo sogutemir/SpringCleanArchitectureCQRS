@@ -48,6 +48,7 @@ public class PaymentCreateUseCase {
         if (paymentHelper.validateFunds(user, totalAmount)) {
             paymentHelper.updateOrderStatus(order, false);
             orderPersistenceAdapter.save(order);
+            paymentCreateMessageUseCase.execute(PaymentDtoToPaymentEventMapper.toEvent(paymentDTO));
             log.warn("Insufficient balance. Payment failed. Order id: {}", paymentDTO.getOrderId());
             return new PaymentEvent(false, "Insufficient balance", null);
         } else {

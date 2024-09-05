@@ -1,6 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.entity;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.common.domain.entity.BaseEntity;
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.enums.NotificationStatus;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
@@ -32,4 +33,7 @@ public class Notification extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "payment_id")
     private Payment payment;
+
+    @Enumerated(EnumType.STRING)
+    private NotificationStatus status;
 }

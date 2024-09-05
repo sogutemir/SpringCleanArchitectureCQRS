@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.exception.KafkaSerializationException;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.usecase.crud.NotificationCreateUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.NotificationDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.enums.NotificationStatus;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.event.OrderEvent;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.PaymentDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.event.PaymentEvent;
@@ -29,13 +30,21 @@ public class HandlePaymentMessage {
         try {
             log.info("Received payment message from Kafka: {}", paymentMessage);
             PaymentEvent paymentEvent = objectMapper.readValue(paymentMessage, PaymentEvent.class);
+            NotificationDto.NotificationDtoBuilder notificationBuilder = NotificationDto.builder()
+                .orderId(paymentEvent.getPaymentDTO().getOrderId())
+                .userId(paymentEvent.getPaymentDTO().getUserId());
 
-            NotificationDto notificationDTO = NotificationDto.builder()
-                    .orderId(paymentEvent.getPaymentDTO().getOrderId())
-                    .userId(paymentEvent.getPaymentDTO().getUserId())
-                    .paymentId(paymentEvent.getPaymentDTO().getPaymentId())
-                    .message("Payment has been created successfully")
-                    .build();
+            if (paymentEvent.getPaymentDTO().getPaymentId() != null) {
+                notificationBuilder.paymentId(paymentEvent.getPaymentDTO().getPaymentId())
+                                   .message("Payment has been created successfully")
+                                   .status(NotificationStatus.SENT);
+
+            } else {
+                notificationBuilder.message("Payment could not be made due to insufficient funds")
+                                   .status(NotificationStatus.FAILED);
+            }
+
+            NotificationDto notificationDTO = notificationBuilder.build();
 
             notificationCreateUseCase.execute(notificationDTO);
 

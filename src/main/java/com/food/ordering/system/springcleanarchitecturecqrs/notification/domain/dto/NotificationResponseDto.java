@@ -1,5 +1,6 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto;
 
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.enums.NotificationStatus;
 import lombok.*;
 
 @Getter
@@ -9,9 +10,9 @@ import lombok.*;
 @Builder
 public class NotificationResponseDto {
 
-    private Long id;
     private String message;
     private Long userId;
     private Long orderId;
     private Long paymentId;
+    private NotificationStatus status;
 }
