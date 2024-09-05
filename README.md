@@ -11,12 +11,12 @@ The project follows Clean Architecture principles and is organized into several 
   - **Entities**: Core business entities like `Order`, `Product`, `User`, etc.
   - **Domain Services**: Business logic that cannot fit into a single entity.
   - **Enums**: Custom enums like `OrderStatus`, `ProductStatus`, `NotificationStatus` that define key states in the system.
+  - **DTOs**: Data Transfer Objects (DTOs) used to transfer data between layers.
 
 - **Application Layer**:  
   Defines the interaction between the Domain layer and the outside world. This layer includes:
   - **Use Cases**: Command and Query UseCases, implementing CQRS pattern to handle business logic operations such as creating, updating, and deleting orders.
   - **Services**: Business services for each use case.
-  - **DTOs**: Data Transfer Objects (DTOs) used to transfer data between layers.
   - **Exception Handling**: Custom exceptions like `OrderNotFoundException`, `ProductNotFoundException`, and a global exception handler for graceful error handling.
   - **Payment Use Cases**: Including the `PaymentCreateUseCase`, which processes payments and handles insufficient funds scenarios.
   - **Notification Use Cases**: Including the `NotificationCreateUseCase`, which handles the creation of notifications with statuses.
@@ -41,6 +41,9 @@ The project follows Clean Architecture principles and is organized into several 
 
 - **Domain-Driven Design (DDD)**:  
   Follows DDD principles to encapsulate business logic within domain models, ensuring that domain behavior is consistent and follows business rules.
+
+- **Event-Driven Architecture**:
+    Uses Kafka for event-driven communication between services, enabling asynchronous processing and decoupling of services.
 
 - **Spring Boot**:  
   Leverages Spring Boot for dependency injection, REST API development, and integration with other enterprise features like validation and security.
@@ -134,21 +137,31 @@ The project features centralized exception handling through a global exception h
   ```json
   {
     "userId": 1,
-    "productIds": [1, 2],
-    "totalAmount": 350
+    "totalAmount": 150.00,
+    "productQuantities":
+    {
+        "1": 5,
+        "2": 5,
+        "3": 5
+    }
   }
   ```
 
-- **Update Order**:  
-  `PUT /api/v1/orders/command/{id}`  
-  Example Request Body:
-  ```json
-  {
-    "userId": 1,
-    "productIds": [1, 2],
-    "totalAmount": 400
-  }
-  ```
+  - **Update Order**:  
+    `PUT /api/v1/orders/command/{id}`  
+    Example Request Body:
+    ```json
+    {
+      "userId": 3,
+      "totalAmount": 126.00,
+      "productQuantities":
+      {
+      "1": 5,
+      "2": 5,
+      "3": 8
+      }
+    }
+    ```
 
 - **Delete Order**:  
   `DELETE /api/v1/orders/command/{id}`
