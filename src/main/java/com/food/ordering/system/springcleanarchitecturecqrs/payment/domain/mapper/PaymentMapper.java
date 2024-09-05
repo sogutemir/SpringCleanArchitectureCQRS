@@ -12,6 +12,7 @@ public class PaymentMapper {
             return null;
         }
         return Payment.builder()
+                .id(paymentDTO.getPaymentId())
                 .user(User.builder().id(paymentDTO.getUserId()).build())
                 .order(Order.builder().id(paymentDTO.getOrderId()).build())
                 .amount(paymentDTO.getAmount())
@@ -24,6 +25,7 @@ public class PaymentMapper {
             return null;
         }
         return PaymentDto.builder()
+                .paymentId(payment.getId())
                 .userId(payment.getUser().getId())
                 .orderId(payment.getOrder().getId())
                 .amount(payment.getAmount())

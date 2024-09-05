@@ -9,11 +9,9 @@ import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.P
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Slf4j
-@Transactional
 public class HandleOrderMessage {
 
     private final PaymentCreateUseCase paymentCreateUseCase;

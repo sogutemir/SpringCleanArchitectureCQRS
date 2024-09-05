@@ -21,6 +21,18 @@ public class NotificationMapper {
                 .build();
     }
 
+    public static NotificationDto toDto(Notification notification) {
+        if (notification == null) {
+            return null;
+        }
+        return NotificationDto.builder()
+                .message(notification.getMessage())
+                .userId(notification.getUser().getId())
+                .orderId(notification.getOrder() != null ? notification.getOrder().getId() : null)
+                .paymentId(notification.getPayment() != null ? notification.getPayment().getId() : null)
+                .build();
+    }
+
     public static void partialUpdate(NotificationDto notificationDTO, Notification notification) {
         if (notificationDTO == null || notification == null) {
             return;
