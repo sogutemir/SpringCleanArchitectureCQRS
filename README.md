@@ -10,7 +10,7 @@ The project follows Clean Architecture principles and is organized into several 
   This is the core layer containing business logic and domain entities. It is independent of any external framework, ensuring high testability and flexibility. Key components include:
   - **Entities**: Core business entities like `Order`, `Product`, `User`, etc.
   - **Domain Services**: Business logic that cannot fit into a single entity.
-  - **Enums**: Custom enums like `OrderStatus`, `ProductStatus` that define key states in the system.
+  - **Enums**: Custom enums like `OrderStatus`, `ProductStatus`, `NotificationStatus` that define key states in the system.
 
 - **Application Layer**:  
   Defines the interaction between the Domain layer and the outside world. This layer includes:
@@ -19,13 +19,12 @@ The project follows Clean Architecture principles and is organized into several 
   - **DTOs**: Data Transfer Objects (DTOs) used to transfer data between layers.
   - **Exception Handling**: Custom exceptions like `OrderNotFoundException`, `ProductNotFoundException`, and a global exception handler for graceful error handling.
   - **Payment Use Cases**: Including the `PaymentCreateUseCase`, which processes payments and handles insufficient funds scenarios.
+  - **Notification Use Cases**: Including the `NotificationCreateUseCase`, which handles the creation of notifications with statuses.
 
 - **Infrastructure Layer**:  
   Responsible for external services and technologies like databases, messaging, and APIs. This includes:
-  - **Repositories**: Interfaces for data persistence, separated into Command and Query repositories to align with CQRS principles.
-  - **Adapters**: Persistence adapters for interaction with external storage.
   - **Kafka Configuration**: Includes Kafka configuration for producing and consuming events related to Orders and Payments.
-  - **Payment Handling**: Uses Kafka for communication between the order and payment services to ensure event-driven architecture.
+  - **Docker Configuration**: Includes Docker configuration for running Kafka, Zookeeper and PostgreSQL in containers.
 
 - **Presentation Layer**:  
   Exposes APIs to interact with the application, using REST controllers for the CQRS-based architecture.
@@ -50,6 +49,7 @@ The project follows Clean Architecture principles and is organized into several 
   Uses Kafka for event-driven communication between services, supporting the scalability and decoupling of the system. Specifically:
   - **Order Events**: When an order is created, an `OrderEvent` is published to Kafka.
   - **Payment Processing**: A Kafka listener in the `PaymentCreateUseCase` listens for order events and processes payments. If the user's balance is insufficient, the order status is set to `CANCELLED`.
+  - **Notification Handling**: A Kafka listener in the `HandlePaymentMessage` listens for payment events and creates notifications with appropriate statuses.
 
 - **Maven**:  
   The project is built and managed using Maven, ensuring easy dependency management, build automation, and continuous integration.
@@ -69,10 +69,14 @@ The project uses Kafka to enable communication between the order and payment ser
 3. **Handling Insufficient Funds**:  
    In the `PaymentCreateUseCase`, if the user's balance is insufficient, the system does not throw an exception but updates the order status to `CANCELLED` and logs the event without retrying the operation.
 
+4. **Notification Handling**:  
+   A Kafka listener (`HandlePaymentMessage`) listens for `PaymentEvent`s. It creates notifications with appropriate statuses based on the payment outcome.
+
 ### Example Kafka Topics:
 
 - `order-events`: Used to publish order creation events.
 - `order-update-events`: Used to publish order status updates.
+- `payment-create`: Used to publish payment creation events.
 
 ### Configuration:
 
@@ -91,6 +95,7 @@ spring.kafka.producer.value-serializer=org.springframework.kafka.support.seriali
 # Kafka Topic Names
 spring.kafka.topic.order=order-events
 spring.kafka.topic.order-update=order-update-events
+spring.kafka.topic.payment-create=payment-create
 ```
 
 ## Exception Handling
