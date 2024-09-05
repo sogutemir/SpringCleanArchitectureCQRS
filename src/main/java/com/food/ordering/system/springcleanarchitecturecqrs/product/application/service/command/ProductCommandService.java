@@ -1,14 +1,14 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.application.service.command;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductDto;
 
 import java.util.Optional;
 
 public interface ProductCommandService {
 
-    ProductDTO createProduct(ProductDTO productDTO);
+    ProductDto createProduct(ProductDto productDTO);
 
-    Optional<ProductDTO> updateProduct(Long id, ProductDTO productDTO);
+    Optional<ProductDto> updateProduct(Long id, ProductDto productDTO);
 
     void deleteProduct(Long id);
 }

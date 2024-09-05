@@ -4,7 +4,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.order.application.se
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command.CreateOrderUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command.DeleteOrderUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command.UpdateOrderUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -29,13 +29,13 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     }
 
     @Override
-    public OrderDTO createOrder(OrderDTO orderDTO, Map<String, String> productIdQuantityMap) {
+    public OrderDto createOrder(OrderDto orderDTO, Map<String, String> productIdQuantityMap) {
         log.info("Creating a new order for userId: {}", orderDTO.getUserId());
         return createOrderUseCase.execute(orderDTO, productIdQuantityMap);
     }
 
     @Override
-    public Optional<OrderDTO> updateOrder(Long id, OrderDTO orderDTO, Map<String, String>productIdQuantityMap) {
+    public Optional<OrderDto> updateOrder(Long id, OrderDto orderDTO, Map<String, String>productIdQuantityMap) {
         log.info("Updating order with id: {}", id);
         return updateOrderUseCase.execute(id, orderDTO, productIdQuantityMap);
     }

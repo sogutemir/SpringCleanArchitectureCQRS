@@ -1,16 +1,16 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.domain.mapper;
 
 
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 
 public class ProductResponseMapper {
 
-    public static ProductResponseDTO toDTO(Product product) {
+    public static ProductResponseDto toDTO(Product product) {
         if (product == null) {
             return null;
         }
-        return ProductResponseDTO.builder()
+        return ProductResponseDto.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .description(product.getDescription())

@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.query;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderResponseMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class FindOrdersByUserIdUseCase {
         this.orderPersistenceAdapter = orderPersistenceAdapter;
     }
 
-    public List<OrderResponseDTO> execute(Long userId) {
+    public List<OrderResponseDto> execute(Long userId) {
         try {
             log.info("Finding orders for user with id: {}", userId);
             List<Order> orders = orderPersistenceAdapter.findByUserId(userId);

@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.query;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.product.dataaccess.adapter.ProductPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.mapper.ProductResponseMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class FindProductsByNameUseCase {
         this.productPersistenceAdapter = productPersistenceAdapter;
     }
 
-    public List<ProductResponseDTO> execute(String name) {
+    public List<ProductResponseDto> execute(String name) {
         try {
             log.info("Finding products with name containing: {}", name);
             List<Product> products = productPersistenceAdapter.findByNameContaining(name);

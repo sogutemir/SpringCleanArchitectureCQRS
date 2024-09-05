@@ -1,12 +1,12 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.domain.mapper;
 
 
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 
 public class ProductMapper {
 
-    public static Product toEntity(ProductDTO productDTO) {
+    public static Product toEntity(ProductDto productDTO) {
         if (productDTO == null) {
             return null;
         }
@@ -18,11 +18,11 @@ public class ProductMapper {
                 .build();
     }
 
-    public static ProductDTO toDTO(Product product) {
+    public static ProductDto toDTO(Product product) {
         if (product == null) {
             return null;
         }
-        return ProductDTO.builder()
+        return ProductDto.builder()
                 .name(product.getName())
                 .description(product.getDescription())
                 .price(product.getPrice())
@@ -30,7 +30,7 @@ public class ProductMapper {
                 .build();
     }
 
-    public static void partialUpdate(ProductDTO productDTO, Product product) {
+    public static void partialUpdate(ProductDto productDTO, Product product) {
         if (productDTO == null || product == null) {
             return;
         }

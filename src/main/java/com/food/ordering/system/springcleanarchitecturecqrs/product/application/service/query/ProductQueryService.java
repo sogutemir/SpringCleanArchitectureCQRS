@@ -1,13 +1,13 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.application.service.query;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductQueryService {
 
-    Optional<ProductResponseDTO> findProductById(Long id);
+    Optional<ProductResponseDto> findProductById(Long id);
 
-    List<ProductResponseDTO> findProductsByName(String name);
+    List<ProductResponseDto> findProductsByName(String name);
 }

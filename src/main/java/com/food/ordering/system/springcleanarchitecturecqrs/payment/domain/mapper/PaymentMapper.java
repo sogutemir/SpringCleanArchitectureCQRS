@@ -1,13 +1,13 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.mapper;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.PaymentDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.PaymentDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 
 public class PaymentMapper {
 
-    public static Payment toEntity(PaymentDTO paymentDTO) {
+    public static Payment toEntity(PaymentDto paymentDTO) {
         if (paymentDTO == null) {
             return null;
         }
@@ -19,18 +19,18 @@ public class PaymentMapper {
                 .build();
     }
 
-    public static PaymentDTO toDTO(Payment payment) {
+    public static PaymentDto toDTO(Payment payment) {
         if (payment == null) {
             return null;
         }
-        return PaymentDTO.builder()
+        return PaymentDto.builder()
                 .userId(payment.getUser().getId())
                 .orderId(payment.getOrder().getId())
                 .amount(payment.getAmount())
                 .build();
     }
 
-    public static void partialUpdate(PaymentDTO paymentDTO, Payment payment) {
+    public static void partialUpdate(PaymentDto paymentDTO, Payment payment) {
         if (paymentDTO == null || payment == null) {
             return;
         }

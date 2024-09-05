@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderDTO {
+public class OrderDto {
 
     @NotNull(message = "User ID is required")
     private Long userId;

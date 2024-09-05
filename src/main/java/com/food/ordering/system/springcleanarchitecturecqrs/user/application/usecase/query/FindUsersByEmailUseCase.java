@@ -2,7 +2,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.user.application.us
 
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.exception.UserNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper.UserResponseMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ public class FindUsersByEmailUseCase {
         this.userPersistenceAdapter = userPersistenceAdapter;
     }
 
-    public List<UserResponseDTO> execute(String email) {
+    public List<UserResponseDto> execute(String email) {
         try {
             log.info("Finding users with email: {}", email);
             List<User> users = userPersistenceAdapter.findByEmail(email);

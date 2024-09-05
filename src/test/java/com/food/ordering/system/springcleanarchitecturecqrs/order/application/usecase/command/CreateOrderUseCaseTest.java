@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.common.application.service.ProductValidationService;
 import com.food.ordering.system.springcleanarchitecturecqrs.common.application.service.UserValidationService;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.helper.OrderCalculationHelper;
@@ -61,7 +61,6 @@ public class CreateOrderUseCaseTest {
                 .description("Description 1")
                 .price(BigDecimal.valueOf(100))
                 .stockQuantity(10)
-                .user(testUser)
                 .build();
         productQueryRepository.save(testProduct1);
 
@@ -70,22 +69,21 @@ public class CreateOrderUseCaseTest {
                 .description("Description 2")
                 .price(BigDecimal.valueOf(200))
                 .stockQuantity(5)
-                .user(testUser)
                 .build();
         productQueryRepository.save(testProduct2);
     }
 
     @Test
     void testCreateOrder_Success() {
-        OrderDTO orderDTO = OrderDTO.builder()
+        OrderDto orderDTO = OrderDto.builder()
                 .userId(testUser.getId())
                 .build();
 
-        Map<Long, Integer> productIdQuantityMap = new HashMap<>();
-        productIdQuantityMap.put(testProduct1.getId(), 2);
-        productIdQuantityMap.put(testProduct2.getId(), 1);
+        Map<String, String> productIdQuantityMap = new HashMap<>();
+        productIdQuantityMap.put(testProduct1.getId().toString(), "2");
+        productIdQuantityMap.put(testProduct2.getId().toString(), "1");
 
-        OrderDTO createdOrder = createOrderUseCase.execute(orderDTO, productIdQuantityMap);
+        OrderDto createdOrder = createOrderUseCase.execute(orderDTO, productIdQuantityMap);
 
         assertNotNull(createdOrder);
         assertEquals(2, createdOrder.getProductIds().size());
@@ -94,24 +92,24 @@ public class CreateOrderUseCaseTest {
 
     @Test
     void testCreateOrder_ProductNotFound() {
-        OrderDTO orderDTO = OrderDTO.builder()
+        OrderDto orderDTO = OrderDto.builder()
                 .userId(testUser.getId())
                 .build();
 
-        Map<Long, Integer> productIdQuantityMap = new HashMap<>();
-        productIdQuantityMap.put(999L, 2);
+        Map<String, String> productIdQuantityMap = new HashMap<>();
+        productIdQuantityMap.put("999", "2");
 
         assertThrows(ProductNotFoundException.class, () -> createOrderUseCase.execute(orderDTO, productIdQuantityMap));
     }
 
     @Test
     void testCreateOrder_InsufficientStock() {
-        OrderDTO orderDTO = OrderDTO.builder()
+        OrderDto orderDTO = OrderDto.builder()
                 .userId(testUser.getId())
                 .build();
 
-        Map<Long, Integer> productIdQuantityMap = new HashMap<>();
-        productIdQuantityMap.put(testProduct1.getId(), 11);
+        Map<String, String> productIdQuantityMap = new HashMap<>();
+        productIdQuantityMap.put(testProduct1.getId().toString(), "11");
 
         assertThrows(InsufficientStockException.class, () -> createOrderUseCase.execute(orderDTO, productIdQuantityMap));
     }

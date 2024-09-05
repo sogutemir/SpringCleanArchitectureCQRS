@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ public class CreateUserUseCase {
         this.userPersistenceAdapter = userPersistenceAdapter;
     }
 
-    public UserDTO execute(UserDTO userDTO) {
+    public UserDto execute(UserDto userDTO) {
         try {
             log.info("Creating user with email: {}", userDTO.getEmail());
             User user = UserMapper.toEntity(userDTO);

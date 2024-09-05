@@ -2,7 +2,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.product.application
 
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.exception.ProductNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.dataaccess.adapter.ProductPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.mapper.ProductResponseMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class FindProductByIdUseCase {
         this.productPersistenceAdapter = productPersistenceAdapter;
     }
 
-    public Optional<ProductResponseDTO> execute(Long id) {
+    public Optional<ProductResponseDto> execute(Long id) {
         try {
             log.info("Finding product with id: {}", id);
             Optional<Product> product = productPersistenceAdapter.findById(id);

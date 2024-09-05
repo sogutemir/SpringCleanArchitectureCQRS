@@ -4,7 +4,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.order.application.se
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command.CreateOrderUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command.DeleteOrderUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command.UpdateOrderUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,9 +13,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class OrderCommandServiceImplTest {
@@ -32,13 +30,13 @@ public class OrderCommandServiceImplTest {
     @InjectMocks
     private OrderCommandServiceImpl orderCommandService;
 
-    private OrderDTO testOrderDTO;
+    private OrderDto testOrderDto;
     private Map<Long, Integer> productIdQuantityMap;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        testOrderDTO = OrderDTO.builder().userId(1L).build();
+        testOrderDto = OrderDto.builder().userId(1L).build();
         productIdQuantityMap = new HashMap<>();
         productIdQuantityMap.put(1L, 2);
     }

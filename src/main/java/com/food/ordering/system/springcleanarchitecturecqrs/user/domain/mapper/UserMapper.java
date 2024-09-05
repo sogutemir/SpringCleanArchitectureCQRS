@@ -1,11 +1,11 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 
 public class UserMapper {
 
-    public static User toEntity(UserDTO userDTO) {
+    public static User toEntity(UserDto userDTO) {
         if (userDTO == null) {
             return null;
         }
@@ -16,18 +16,18 @@ public class UserMapper {
                 .build();
     }
 
-    public static UserDTO toDTO(User user) {
+    public static UserDto toDTO(User user) {
         if (user == null) {
             return null;
         }
-        return UserDTO.builder()
+        return UserDto.builder()
                 .name(user.getName())
                 .email(user.getEmail())
                 .money(user.getMoney())
                 .build();
     }
 
-    public static void partialUpdate(UserDTO userDTO, User user) {
+    public static void partialUpdate(UserDto userDTO, User user) {
         if (userDTO == null || user == null) {
             return;
         }

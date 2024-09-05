@@ -1,6 +1,6 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class OrderMapper {
 
-    public static Order toEntity(OrderDTO orderDTO, List<Product> products) {
+    public static Order toEntity(OrderDto orderDTO, List<Product> products) {
         if (orderDTO == null) {
             return null;
         }
@@ -23,7 +23,7 @@ public class OrderMapper {
                 .build();
     }
 
-    public static Order toEntity(OrderDTO orderDTO, Map<Long, Integer> productIdQuantityMap, BigDecimal totalAmount) {
+    public static Order toEntity(OrderDto orderDTO, Map<Long, Integer> productIdQuantityMap, BigDecimal totalAmount) {
         if (orderDTO == null || productIdQuantityMap == null) {
             return null;
         }
@@ -39,11 +39,11 @@ public class OrderMapper {
                 .build();
     }
 
-    public static OrderDTO toDTO(Order order) {
+    public static OrderDto toDTO(Order order) {
         if (order == null) {
             return null;
         }
-        return OrderDTO.builder()
+        return OrderDto.builder()
                 .userId(order.getUser().getId())
                 .totalAmount(order.getTotalAmount())
                 .productIds(order.getProducts() != null ?
@@ -53,7 +53,7 @@ public class OrderMapper {
                 .build();
     }
 
-    public static void partialUpdate(OrderDTO orderDTO, Order order, List<Product> products) {
+    public static void partialUpdate(OrderDto orderDTO, Order order, List<Product> products) {
         if (orderDTO == null || order == null) {
             return;
         }

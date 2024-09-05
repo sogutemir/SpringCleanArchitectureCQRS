@@ -14,6 +14,9 @@ public class KafkaConfig {
     @Value("${spring.kafka.consumer.group-id}")
     private String paymentGroup;
 
+    @Value("${spring.kafka.topic.payment-create}")
+    private String paymentCreateTopic;
+
     @Value("${spring.kafka.topic.order-update}")
     private String orderUpdateTopic;
 

@@ -4,7 +4,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.order.api.command;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.exception.OrderNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.service.command.OrderCommandService;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -36,26 +36,26 @@ public class OrderCommandControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private OrderDTO testOrderDTO;
+    private OrderDto testOrderDto;
     private Map<Long, Integer> productIdQuantityMap;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        testOrderDTO = OrderDTO.builder().userId(1L).totalAmount(BigDecimal.valueOf(200)).build();
+        testOrderDto = OrderDto.builder().userId(1L).totalAmount(BigDecimal.valueOf(200)).build();
         productIdQuantityMap = new HashMap<>();
         productIdQuantityMap.put(1L, 2);
     }
 
     @Test
     void createOrder_Success() throws Exception {
-        testOrderDTO.setProductIds(List.of(1L, 2L));
+        testOrderDto.setProductIds(List.of(1L, 2L));
 
-        when(orderCommandService.createOrder(any(OrderDTO.class), anyMap())).thenReturn(testOrderDTO);
+        when(orderCommandService.createOrder(any(OrderDto.class), anyMap())).thenReturn(testOrderDto);
 
         mockMvc.perform(post("/api/v1/orders/command")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(testOrderDTO))
+                        .content(objectMapper.writeValueAsString(testOrderDto))
                         .param("1", "2"))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.userId").value(1L))
@@ -63,49 +63,49 @@ public class OrderCommandControllerTest {
                 .andExpect(jsonPath("$.productIds[0]").value(1L))
                 .andExpect(jsonPath("$.productIds[1]").value(2L));
 
-        verify(orderCommandService, times(1)).createOrder(any(OrderDTO.class), anyMap());
+        verify(orderCommandService, times(1)).createOrder(any(OrderDto.class), anyMap());
     }
 
     @Test
     void createOrder_BadRequest() throws Exception {
-        OrderDTO invalidOrderDTO = new OrderDTO();
+        OrderDto invalidOrderDto = new OrderDto();
         mockMvc.perform(post("/api/v1/orders/command")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidOrderDTO))
+                        .content(objectMapper.writeValueAsString(invalidOrderDto))
                         .param("1", "2"))
                 .andExpect(status().isBadRequest());
 
-        verify(orderCommandService, never()).createOrder(any(OrderDTO.class), anyMap());
+        verify(orderCommandService, never()).createOrder(any(OrderDto.class), anyMap());
     }
 
     @Test
     void updateOrder_Success() throws Exception {
-        when(orderCommandService.updateOrder(eq(1L), any(OrderDTO.class), anyMap()))
-                .thenReturn(Optional.of(testOrderDTO));
+        when(orderCommandService.updateOrder(eq(1L), any(OrderDto.class), anyMap()))
+                .thenReturn(Optional.of(testOrderDto));
 
         mockMvc.perform(put("/api/v1/orders/command/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(testOrderDTO))
+                        .content(objectMapper.writeValueAsString(testOrderDto))
                         .param("1", "2"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userId").value(1L))
                 .andExpect(jsonPath("$.totalAmount").value(200));
 
-        verify(orderCommandService, times(1)).updateOrder(eq(1L), any(OrderDTO.class), anyMap());
+        verify(orderCommandService, times(1)).updateOrder(eq(1L), any(OrderDto.class), anyMap());
     }
 
     @Test
     void updateOrder_NotFound() throws Exception {
-        when(orderCommandService.updateOrder(eq(999L), any(OrderDTO.class), anyMap()))
+        when(orderCommandService.updateOrder(eq(999L), any(OrderDto.class), anyMap()))
                 .thenReturn(Optional.empty());
 
         mockMvc.perform(put("/api/v1/orders/command/{id}", 999L)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(testOrderDTO))
+                        .content(objectMapper.writeValueAsString(testOrderDto))
                         .param("1", "2"))
                 .andExpect(status().isNotFound());
 
-        verify(orderCommandService, times(1)).updateOrder(eq(999L), any(OrderDTO.class), anyMap());
+        verify(orderCommandService, times(1)).updateOrder(eq(999L), any(OrderDto.class), anyMap());
     }
 
     @Test
@@ -144,14 +144,14 @@ public class OrderCommandControllerTest {
         productIdQuantityMap.put(productId1, quantity1);
         productIdQuantityMap.put(productId2, quantity2);
 
-        testOrderDTO.setProductIds(List.of(productId1, productId2));
-        testOrderDTO.setTotalAmount(expectedTotalAmount);
+        testOrderDto.setProductIds(List.of(productId1, productId2));
+        testOrderDto.setTotalAmount(expectedTotalAmount);
 
-        when(orderCommandService.createOrder(any(OrderDTO.class), anyMap())).thenReturn(testOrderDTO);
+        when(orderCommandService.createOrder(any(OrderDto.class), anyMap())).thenReturn(testOrderDto);
 
         mockMvc.perform(post("/api/v1/orders/command")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(testOrderDTO))
+                        .content(objectMapper.writeValueAsString(testOrderDto))
                         .param(productId1.toString(), String.valueOf(quantity1))
                         .param(productId2.toString(), String.valueOf(quantity2)))
                 .andExpect(status().isCreated())
@@ -160,7 +160,7 @@ public class OrderCommandControllerTest {
                 .andExpect(jsonPath("$.productIds[0]").value(productId1))
                 .andExpect(jsonPath("$.productIds[1]").value(productId2));
 
-        verify(orderCommandService, times(1)).createOrder(any(OrderDTO.class), anyMap());
+        verify(orderCommandService, times(1)).createOrder(any(OrderDto.class), anyMap());
     }
 
 }

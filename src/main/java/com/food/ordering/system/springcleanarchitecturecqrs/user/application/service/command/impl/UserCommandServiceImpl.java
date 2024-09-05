@@ -4,7 +4,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.user.application.ser
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command.CreateUserUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command.DeleteUserUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command.UpdateUserUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +28,13 @@ public class UserCommandServiceImpl implements UserCommandService {
     }
 
     @Override
-    public UserDTO createUser(UserDTO userDTO) {
+    public UserDto createUser(UserDto userDTO) {
         log.info("Creating a new user with email: {}", userDTO.getEmail());
         return createUserUseCase.execute(userDTO);
     }
 
     @Override
-    public Optional<UserDTO> updateUser(Long id, UserDTO userDTO) {
+    public Optional<UserDto> updateUser(Long id, UserDto userDTO) {
         log.info("Updating user with id: {}", id);
         return updateUserUseCase.execute(id, userDTO);
     }

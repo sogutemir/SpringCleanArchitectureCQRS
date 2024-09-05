@@ -23,6 +23,10 @@ public class PaymentPersistenceAdapter {
         return paymentQueryRepository.findById(id);
     }
 
+    public List<Payment> findAll() {
+        return paymentQueryRepository.findAll();
+    }
+
     public List<Payment> findByUserId(Long userId) {
         return paymentQueryRepository.findByUserId(userId);
     }

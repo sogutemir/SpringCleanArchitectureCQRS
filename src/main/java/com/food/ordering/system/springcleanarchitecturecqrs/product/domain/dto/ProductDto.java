@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProductDTO {
+public class ProductDto {
 
     @NotBlank(message = "Name cannot be blank")
     private String name;

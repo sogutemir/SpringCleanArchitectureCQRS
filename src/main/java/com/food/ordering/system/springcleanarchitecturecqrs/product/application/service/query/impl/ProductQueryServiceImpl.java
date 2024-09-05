@@ -3,7 +3,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.product.application
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.service.query.ProductQueryService;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.query.FindProductByIdUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.query.FindProductsByNameUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +25,13 @@ public class ProductQueryServiceImpl implements ProductQueryService {
     }
 
     @Override
-    public Optional<ProductResponseDTO> findProductById(Long id) {
+    public Optional<ProductResponseDto> findProductById(Long id) {
         log.info("Finding product with id: {}", id);
         return findProductByIdUseCase.execute(id);
     }
 
     @Override
-    public List<ProductResponseDTO> findProductsByName(String name) {
+    public List<ProductResponseDto> findProductsByName(String name) {
         log.info("Finding products with name containing: {}", name);
         return findProductsByNameUseCase.execute(name);
     }

@@ -3,7 +3,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.order.application.u
 import com.food.ordering.system.springcleanarchitecturecqrs.common.application.utility.ProductIdQuantityMapParser;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.producer.OrderEventProducer;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.event.OrderEvent;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderMapper;
@@ -37,7 +37,7 @@ public class CreateOrderUseCase {
         this.orderEventProducer = orderEventProducer;
     }
 
-    public OrderDTO execute(OrderDTO orderDTO, Map<String, String>productIdQuantityMap) {
+    public OrderDto execute(OrderDto orderDTO, Map<String, String>productIdQuantityMap) {
         try {
             log.info("Creating order for user with id: {}", orderDTO.getUserId());
 

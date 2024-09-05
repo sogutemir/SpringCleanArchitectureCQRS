@@ -1,14 +1,14 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.user.application.service.command;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDto;
 
 import java.util.Optional;
 
 public interface UserCommandService {
 
-    UserDTO createUser(UserDTO userDTO);
+    UserDto createUser(UserDto userDTO);
 
-    Optional<UserDTO> updateUser(Long id, UserDTO userDTO);
+    Optional<UserDto> updateUser(Long id, UserDto userDTO);
 
     void deleteUser(Long id);
 }

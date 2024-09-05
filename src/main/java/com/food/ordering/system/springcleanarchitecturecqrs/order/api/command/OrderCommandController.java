@@ -2,7 +2,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.order.api.command;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.exception.OrderNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.service.command.OrderCommandService;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/orders/command")
@@ -23,20 +22,20 @@ public class OrderCommandController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderDTO orderDTO, @RequestParam Map<String, String> productIdQuantityMap) {
+    public ResponseEntity<OrderDto> createOrder(@Valid @RequestBody OrderDto orderDTO, @RequestParam Map<String, String> productIdQuantityMap) {
         if (productIdQuantityMap.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        OrderDTO createdOrder = orderCommandService.createOrder(orderDTO, productIdQuantityMap);
+        OrderDto createdOrder = orderCommandService.createOrder(orderDTO, productIdQuantityMap);
         return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderDTO> updateOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO, @RequestParam Map<String, String> productIdQuantityMap) {
+    public ResponseEntity<OrderDto> updateOrder(@PathVariable Long id, @RequestBody OrderDto orderDTO, @RequestParam Map<String, String> productIdQuantityMap) {
         if (productIdQuantityMap.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Optional<OrderDTO> updatedOrder = orderCommandService.updateOrder(id, orderDTO, productIdQuantityMap);
+        Optional<OrderDto> updatedOrder = orderCommandService.updateOrder(id, orderDTO, productIdQuantityMap);
         return updatedOrder.map(order -> new ResponseEntity<>(order, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

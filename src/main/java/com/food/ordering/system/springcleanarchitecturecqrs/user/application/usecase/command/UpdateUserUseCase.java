@@ -2,7 +2,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.user.application.us
 
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.exception.UserNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -20,14 +20,14 @@ public class UpdateUserUseCase {
         this.userPersistenceAdapter = userPersistenceAdapter;
     }
 
-    public Optional<UserDTO> execute(Long id, UserDTO updatedUserDTO) {
+    public Optional<UserDto> execute(Long id, UserDto updatedUserDto) {
         try {
             log.info("Updating user with id: {}", id);
             Optional<User> existingUser = userPersistenceAdapter.findById(id);
 
             if (existingUser.isPresent()) {
                 User user = existingUser.get();
-                UserMapper.partialUpdate(updatedUserDTO, user);
+                UserMapper.partialUpdate(updatedUserDto, user);
                 User updatedUser = userPersistenceAdapter.save(user);
                 log.info("User updated successfully with id: {}", updatedUser.getId());
                 return Optional.of(UserMapper.toDTO(updatedUser));

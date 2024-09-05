@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.api.query;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.service.query.ProductQueryService;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,15 +19,15 @@ public class ProductQueryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponseDTO> findProductById(@PathVariable Long id) {
-        Optional<ProductResponseDTO> product = productQueryService.findProductById(id);
+    public ResponseEntity<ProductResponseDto> findProductById(@PathVariable Long id) {
+        Optional<ProductResponseDto> product = productQueryService.findProductById(id);
         return product.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductResponseDTO>> findProductsByName(@RequestParam String name) {
-        List<ProductResponseDTO> products = productQueryService.findProductsByName(name);
+    public ResponseEntity<List<ProductResponseDto>> findProductsByName(@RequestParam String name) {
+        List<ProductResponseDto> products = productQueryService.findProductsByName(name);
         return ResponseEntity.ok(products);
     }
 }

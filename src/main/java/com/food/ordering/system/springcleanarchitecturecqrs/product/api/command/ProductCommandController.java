@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.api.command;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.service.command.ProductCommandService;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +19,14 @@ public class ProductCommandController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
-        ProductDTO createdProduct = productCommandService.createProduct(productDTO);
+    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDTO) {
+        ProductDto createdProduct = productCommandService.createProduct(productDTO);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
-        Optional<ProductDTO> updatedProduct = productCommandService.updateProduct(id, productDTO);
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDTO) {
+        Optional<ProductDto> updatedProduct = productCommandService.updateProduct(id, productDTO);
         return updatedProduct.map(product -> new ResponseEntity<>(product, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

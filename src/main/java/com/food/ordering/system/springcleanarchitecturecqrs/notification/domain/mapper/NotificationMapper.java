@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.mapper;
 
 
-import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.NotificationDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.NotificationDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.entity.Notification;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;
@@ -9,7 +9,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.U
 
 public class NotificationMapper {
 
-    public static Notification toEntity(NotificationDTO notificationDTO) {
+    public static Notification toEntity(NotificationDto notificationDTO) {
         if (notificationDTO == null) {
             return null;
         }
@@ -21,7 +21,7 @@ public class NotificationMapper {
                 .build();
     }
 
-    public static void partialUpdate(NotificationDTO notificationDTO, Notification notification) {
+    public static void partialUpdate(NotificationDto notificationDTO, Notification notification) {
         if (notificationDTO == null || notification == null) {
             return;
         }

@@ -1,6 +1,5 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -8,11 +7,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class NotificationDTO {
+public class NotificationResponseDto {
 
-    @NotBlank(message = "Message cannot be blank")
+    private Long id;
     private String message;
-
     private Long userId;
     private Long orderId;
     private Long paymentId;

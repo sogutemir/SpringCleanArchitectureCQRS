@@ -1,6 +1,6 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.event;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.PaymentDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.PaymentDto;
 import lombok.*;
 
 @Getter
@@ -8,8 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PaymentEventDTO {
+public class PaymentEvent {
     private boolean success;
     private String message;
-    private PaymentDTO paymentDTO;
+    private PaymentDto paymentDTO;
 }

@@ -2,7 +2,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.user.application.us
 
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.exception.UserNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper.UserResponseMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class FindUserByIdUseCase {
         this.userPersistenceAdapter = userPersistenceAdapter;
     }
 
-    public Optional<UserResponseDTO> execute(Long id) {
+    public Optional<UserResponseDto> execute(Long id) {
         try {
             log.info("Finding user with id: {}", id);
             Optional<User> user = userPersistenceAdapter.findById(id);

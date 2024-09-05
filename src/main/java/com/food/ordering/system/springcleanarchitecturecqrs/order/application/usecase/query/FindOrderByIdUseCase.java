@@ -2,7 +2,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.order.application.u
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.exception.OrderNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderResponseDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderResponseMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class FindOrderByIdUseCase {
         this.orderPersistenceAdapter = orderPersistenceAdapter;
     }
 
-    public Optional<OrderResponseDTO> execute(Long id) {
+    public Optional<OrderResponseDto> execute(Long id) {
         try {
             log.info("Finding order with id: {}", id);
             Optional<Order> order = orderPersistenceAdapter.findById(id);

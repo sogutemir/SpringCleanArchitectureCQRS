@@ -4,7 +4,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.product.application.
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.command.CreateProductUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.command.DeleteProductUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.command.UpdateProductUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +28,13 @@ public class ProductCommandServiceImpl implements ProductCommandService {
     }
 
     @Override
-    public ProductDTO createProduct(ProductDTO productDTO) {
+    public ProductDto createProduct(ProductDto productDTO) {
         log.info("Creating a new product with name: {}", productDTO.getName());
         return createProductUseCase.execute(productDTO);
     }
 
     @Override
-    public Optional<ProductDTO> updateProduct(Long id, ProductDTO productDTO) {
+    public Optional<ProductDto> updateProduct(Long id, ProductDto productDTO) {
         log.info("Updating product with id: {}", id);
         return updateProductUseCase.execute(id, productDTO);
     }

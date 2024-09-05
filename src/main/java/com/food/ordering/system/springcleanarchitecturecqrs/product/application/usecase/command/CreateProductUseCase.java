@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.command;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.product.dataaccess.adapter.ProductPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.mapper.ProductMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ public class CreateProductUseCase {
         this.productPersistenceAdapter = productPersistenceAdapter;
     }
 
-    public ProductDTO execute(ProductDTO productDTO) {
+    public ProductDto execute(ProductDto productDTO) {
         try {
             log.info("Creating product with name: {}", productDTO.getName());
             Product product = ProductMapper.toEntity(productDTO);

@@ -5,7 +5,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.order.application.ex
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.common.application.service.ProductValidationService;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.helper.OrderCalculationHelper;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDTO;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
@@ -27,7 +27,7 @@ public class UpdateOrderUseCase {
     private final ProductValidationService productValidationService;
     private final OrderCalculationHelper orderCalculationHelper;
 
-    public Optional<OrderDTO> execute(Long id, OrderDTO orderDTO, Map<String, String>productIdQuantityMap) {
+    public Optional<OrderDto> execute(Long id, OrderDto orderDTO, Map<String, String>productIdQuantityMap) {
         try {
             log.info("Updating order with id: {}", id);
             Optional<Order> existingOrder = orderPersistenceAdapter.findById(id);
