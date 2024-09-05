@@ -22,23 +22,24 @@ public class OrderCommandController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderDto> createOrder(@Valid @RequestBody OrderDto orderDTO, @RequestParam Map<String, String> productIdQuantityMap) {
-        if (productIdQuantityMap.isEmpty()) {
+    public ResponseEntity<OrderDto> createOrder(@Valid @RequestBody OrderDto orderDTO) {
+        if (orderDTO.getProductQuantities().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        OrderDto createdOrder = orderCommandService.createOrder(orderDTO, productIdQuantityMap);
+        OrderDto createdOrder = orderCommandService.createOrder(orderDTO);
         return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderDto> updateOrder(@PathVariable Long id, @RequestBody OrderDto orderDTO, @RequestParam Map<String, String> productIdQuantityMap) {
-        if (productIdQuantityMap.isEmpty()) {
+    public ResponseEntity<OrderDto> updateOrder(@PathVariable Long id, @Valid @RequestBody OrderDto orderDTO) {
+        if (orderDTO.getProductQuantities().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Optional<OrderDto> updatedOrder = orderCommandService.updateOrder(id, orderDTO, productIdQuantityMap);
+        Optional<OrderDto> updatedOrder = orderCommandService.updateOrder(id, orderDTO);
         return updatedOrder.map(order -> new ResponseEntity<>(order, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {

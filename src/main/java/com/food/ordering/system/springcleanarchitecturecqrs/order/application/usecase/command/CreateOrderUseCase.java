@@ -1,6 +1,5 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.common.application.utility.ProductIdQuantityMapParser;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.producer.OrderEventProducer;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
@@ -37,16 +36,14 @@ public class CreateOrderUseCase {
         this.orderEventProducer = orderEventProducer;
     }
 
-    public OrderDto execute(OrderDto orderDTO, Map<String, String>productIdQuantityMap) {
+    public OrderDto execute(OrderDto orderDTO, Map<Long, Integer> productIdQuantityMap) {
         try {
             log.info("Creating order for user with id: {}", orderDTO.getUserId());
 
             User user = userValidationService.validateUserExists(orderDTO.getUserId());
 
-            Map<Long, Integer> parsedProductIdQuantityMap = ProductIdQuantityMapParser.parse(productIdQuantityMap);
-
-            List<Product> products = productValidationService.validateProductsExistAndStock(parsedProductIdQuantityMap);
-            BigDecimal totalAmount = orderCalculationHelper.calculateTotalAmount(products, parsedProductIdQuantityMap);
+            List<Product> products = productValidationService.validateProductsExistAndStock(productIdQuantityMap);
+            BigDecimal totalAmount = orderCalculationHelper.calculateTotalAmount(products, productIdQuantityMap);
 
             Order order = OrderMapper.toEntity(orderDTO, products);
             order.setTotalAmount(totalAmount);
@@ -63,11 +60,13 @@ public class CreateOrderUseCase {
                 log.error("Error occurred while sending order event for order id: {}. Error: {}", savedOrder.getId(), kafkaException.getMessage(), kafkaException);
             }
 
-            return OrderMapper.toDTO(savedOrder);
+            return OrderMapper.toDTO(savedOrder, productIdQuantityMap);
 
         } catch (Exception e) {
             log.error("Error occurred while creating order: {}", e.getMessage(), e);
             throw e;
         }
     }
+
+
 }

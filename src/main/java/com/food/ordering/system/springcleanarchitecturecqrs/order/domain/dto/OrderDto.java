@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -20,6 +20,6 @@ public class OrderDto {
     @DecimalMin(value = "0.0", inclusive = false, message = "Total amount cannot be less than zero")
     private BigDecimal totalAmount;
 
-    @NotNull(message = "Products are required")
-    private List<Long> productIds;
+    @NotNull(message = "Product quantities are required")
+    private Map<Long, Integer> productQuantities;
 }
