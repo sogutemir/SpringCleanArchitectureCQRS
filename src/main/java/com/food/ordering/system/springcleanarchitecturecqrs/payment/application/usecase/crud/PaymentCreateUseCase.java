@@ -12,8 +12,10 @@ import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.mappe
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.mapper.PaymentMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.message.StockUpdateMessageUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.event.StockUpdateEvent;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.message.UserUpdateEventUseCase;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.query.FindUserByIdUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper.UserUpdateEventToUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,28 +29,32 @@ public class PaymentCreateUseCase {
 
     private final PaymentHelper paymentHelper;
     private final PaymentPersistenceAdapter paymentPersistenceAdapter;
-    private final UserPersistenceAdapter userPersistenceAdapter;
     private final OrderPersistenceAdapter orderPersistenceAdapter;
     private final PaymentCreateMessageUseCase paymentCreateMessageUseCase;
     private final StockUpdateMessageUseCase stockUpdateMessageUseCase;
+    private final UserUpdateEventUseCase userUpdateEventUseCase;
+    private final FindUserByIdUseCase findUserByIdUseCase;
 
     public PaymentCreateUseCase(PaymentHelper paymentHelper,
                                 PaymentPersistenceAdapter paymentPersistenceAdapter,
-                                UserPersistenceAdapter userPersistenceAdapter,
                                 OrderPersistenceAdapter orderPersistenceAdapter,
-                                PaymentCreateMessageUseCase paymentCreateMessageUseCase, StockUpdateMessageUseCase stockUpdateMessageUseCase) {
+                                PaymentCreateMessageUseCase paymentCreateMessageUseCase,
+                                StockUpdateMessageUseCase stockUpdateMessageUseCase,
+                                UserUpdateEventUseCase userUpdateEventProducer,
+                                FindUserByIdUseCase findUserByIdUseCase) {
         this.paymentHelper = paymentHelper;
         this.paymentPersistenceAdapter = paymentPersistenceAdapter;
-        this.userPersistenceAdapter = userPersistenceAdapter;
         this.orderPersistenceAdapter = orderPersistenceAdapter;
         this.paymentCreateMessageUseCase = paymentCreateMessageUseCase;
         this.stockUpdateMessageUseCase = stockUpdateMessageUseCase;
+        this.userUpdateEventUseCase = userUpdateEventProducer;
+        this.findUserByIdUseCase = findUserByIdUseCase;
     }
 
     public PaymentEvent execute(PaymentDto paymentDTO) {
         log.info("Payment create use case started. PaymentDTO: {}", paymentDTO);
 
-        User user = userPersistenceAdapter.findById(paymentDTO.getUserId()).orElseThrow();
+        User user = findUserByIdUseCase.findUserEntityById(paymentDTO.getUserId());
         Order order = orderPersistenceAdapter.findById(paymentDTO.getOrderId()).orElseThrow();
 
         BigDecimal totalAmount = order.getTotalAmount();
@@ -69,7 +75,7 @@ public class PaymentCreateUseCase {
             paymentHelper.updateUserBalance(user, totalAmount);
             paymentHelper.updateOrderStatus(order, true);
 
-            userPersistenceAdapter.save(user);
+            userUpdateEventUseCase.execute(UserUpdateEventToUserMapper.toUserUpdateEvent(user,order.getId()));
             orderPersistenceAdapter.save(order);
 
             StockUpdateEvent stockUpdateEvent = new StockUpdateEvent(order.getId(), paymentDTO.getProductQuantities());

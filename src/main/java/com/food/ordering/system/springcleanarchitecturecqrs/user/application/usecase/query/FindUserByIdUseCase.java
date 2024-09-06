@@ -38,4 +38,8 @@ public class FindUserByIdUseCase {
             throw e;
         }
     }
+
+    public User findUserEntityById(Long id) {
+        return userPersistenceAdapter.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    }
 }

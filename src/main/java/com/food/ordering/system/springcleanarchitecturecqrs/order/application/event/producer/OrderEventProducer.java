@@ -18,7 +18,8 @@ public class OrderEventProducer {
     private final ObjectMapper objectMapper;
     private final KafkaConfig kafkaConfig;
 
-    public OrderEventProducer(KafkaTemplate<String, Object> kafkaTemplate, ObjectMapper objectMapper, KafkaConfig kafkaConfig) {
+    public OrderEventProducer(KafkaTemplate<String, Object> kafkaTemplate,
+                              ObjectMapper objectMapper, KafkaConfig kafkaConfig) {
         this.kafkaTemplate = kafkaTemplate;
         this.objectMapper = objectMapper;
         this.kafkaConfig = kafkaConfig;

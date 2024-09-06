@@ -4,7 +4,9 @@ import com.food.ordering.system.springcleanarchitecturecqrs.user.application.exc
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.event.UserUpdateEvent;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper.UserMapper;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper.UserUpdateEventToUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -39,6 +41,28 @@ public class UpdateUserUseCase {
             throw e;
         } catch (Exception e) {
             log.error("Error occurred while updating user with id: {}", id, e);
+            throw e;
+        }
+    }
+
+    public void execute(UserUpdateEvent userUpdateEvent) {
+        try {
+            log.info("Updating user with id: {}", userUpdateEvent.getUserId());
+            Optional<User> existingUser = userPersistenceAdapter.findById(userUpdateEvent.getUserId());
+
+            if (existingUser.isPresent()) {
+                User user = existingUser.get();
+                UserUpdateEventToUserMapper.updateUser(userUpdateEvent, user);
+                userPersistenceAdapter.save(user);
+                log.info("User updated successfully with id: {}", user.getId());
+            } else {
+                throw new UserNotFoundException(userUpdateEvent.getUserId());
+            }
+        } catch (UserNotFoundException e) {
+            log.error("User with id {} not found.", userUpdateEvent.getUserId());
+            throw e;
+        } catch (Exception e) {
+            log.error("Error occurred while updating user with id: {}", userUpdateEvent.getUserId(), e);
             throw e;
         }
     }

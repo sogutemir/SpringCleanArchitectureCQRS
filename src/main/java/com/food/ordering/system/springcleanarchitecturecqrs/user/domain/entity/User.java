@@ -3,8 +3,8 @@ package com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity;
 import com.food.ordering.system.springcleanarchitecturecqrs.common.domain.entity.BaseEntity;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.entity.Notification;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
@@ -38,7 +38,7 @@ public class User extends BaseEntity {
     @DecimalMin(value = "0.0", inclusive = false, message = "Money cannot be less than zero")
     private BigDecimal money = BigDecimal.ZERO;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Order> orders;
 
     @OneToMany(mappedBy = "user")
