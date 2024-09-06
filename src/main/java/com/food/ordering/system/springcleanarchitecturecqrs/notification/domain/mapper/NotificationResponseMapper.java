@@ -15,6 +15,7 @@ public class NotificationResponseMapper {
                 .orderId(notification.getOrder() != null ? notification.getOrder().getId() : null)
                 .paymentId(notification.getPayment() != null ? notification.getPayment().getId() : null)
                 .status(notification.getStatus())
+                .isPaymentApproved(notification.getPayment() != null)
                 .build();
     }
 }

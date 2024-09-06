@@ -15,4 +15,5 @@ public class NotificationResponseDto {
     private Long orderId;
     private Long paymentId;
     private NotificationStatus status;
+    private Boolean isPaymentApproved;
 }

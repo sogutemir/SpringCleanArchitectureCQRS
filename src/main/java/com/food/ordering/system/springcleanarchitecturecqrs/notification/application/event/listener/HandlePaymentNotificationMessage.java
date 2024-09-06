@@ -39,7 +39,7 @@ public class HandlePaymentNotificationMessage {
 
             } else {
                 notificationBuilder.message("Payment could not be made due to insufficient funds")
-                                   .status(NotificationStatus.FAILED);
+                                   .status(NotificationStatus.SENT);
             }
 
             NotificationDto notificationDTO = notificationBuilder.build();
