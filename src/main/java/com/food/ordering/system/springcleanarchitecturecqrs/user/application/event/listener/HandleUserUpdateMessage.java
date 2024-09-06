@@ -30,7 +30,7 @@ public class HandleUserUpdateMessage {
             updateUserUseCase.execute(userUpdateEvent);
 
         } catch (JsonProcessingException e) {
-            throw new KafkaSerializationException("Failed to deserialize order message", e);
+            throw new KafkaSerializationException("Failed to deserialize userUpdate message", e);
         }
     }
 

@@ -5,6 +5,8 @@ import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.ada
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderResponseMapper;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.exception.UserNotFoundException;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -37,5 +39,9 @@ public class FindOrderByIdUseCase {
             log.error("Error occurred while finding order with id: {}", id, e);
             throw e;
         }
+    }
+
+    public Order findUserEntityById(Long id) {
+        return orderPersistenceAdapter.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 }

@@ -31,7 +31,7 @@ public class UserUpdateEventProducer {
             kafkaTemplate.send(kafkaConfig.getUserUpdateTopic(), userUpdateJson);
             log.info("userUpdate event sent successfully");
         } catch (JsonProcessingException e) {
-            log.error("Failed to serialize order event to JSON", e);
+            log.error("Failed to serialize userUpdate event to JSON", e);
             throw new KafkaSerializationException("Failed to serialize userUpdate event to JSON", e);
         } catch (Exception e) {
             throw new KafkaMessageSendException("Failed to send userUpdate event message", e);

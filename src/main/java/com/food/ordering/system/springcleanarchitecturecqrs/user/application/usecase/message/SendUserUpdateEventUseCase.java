@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class UserUpdateEventUseCase {
+public class SendUserUpdateEventUseCase {
 
     private final UserUpdateEventProducer userUpdateEventProducer;
 
-    public UserUpdateEventUseCase(UserUpdateEventProducer userUpdateEventProducer) {
+    public SendUserUpdateEventUseCase(UserUpdateEventProducer userUpdateEventProducer) {
         this.userUpdateEventProducer = userUpdateEventProducer;
     }
 
