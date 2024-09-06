@@ -4,6 +4,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.common.domain.entity
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.enums.NotificationStatus;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -33,6 +34,10 @@ public class Notification extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "payment_id")
     private Payment payment;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Enumerated(EnumType.STRING)
     private NotificationStatus status;

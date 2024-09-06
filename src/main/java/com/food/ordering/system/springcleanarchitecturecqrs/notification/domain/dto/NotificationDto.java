@@ -14,6 +14,7 @@ public class NotificationDto {
     @NotBlank(message = "Message cannot be blank")
     private String message;
 
+    private Long productId;
     private Long userId;
     private Long orderId;
     private Long paymentId;

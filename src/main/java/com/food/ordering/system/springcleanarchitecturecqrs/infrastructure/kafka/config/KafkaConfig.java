@@ -23,6 +23,9 @@ public class KafkaConfig {
     @Value("${spring.kafka.topic.stock-update}")
     private String StockUpdateTopic;
 
+    @Value("${spring.kafka.topic.product-notification}")
+    private String ProductNotificationTopic;
+
     @Value("${spring.kafka.topic.order-update}")
     private String orderUpdateTopic;
 

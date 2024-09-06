@@ -4,6 +4,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.entity.Notification;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 
 public class NotificationMapper {
@@ -15,6 +16,7 @@ public class NotificationMapper {
         return Notification.builder()
                 .message(notificationDTO.getMessage())
                 .user(User.builder().id(notificationDTO.getUserId()).build())
+                .product(notificationDTO.getProductId() != null ? Product.builder().id(notificationDTO.getProductId()).build() : null)
                 .order(notificationDTO.getOrderId() != null ? Order.builder().id(notificationDTO.getOrderId()).build() : null)
                 .payment(notificationDTO.getPaymentId() != null ? Payment.builder().id(notificationDTO.getPaymentId()).build() : null)
                 .status(notificationDTO.getStatus())

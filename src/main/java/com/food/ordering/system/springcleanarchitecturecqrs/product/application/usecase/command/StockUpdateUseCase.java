@@ -1,7 +1,10 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.command;
 
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.message.ProductNotificationEventMessageUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.dataaccess.adapter.ProductPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.event.ProductNotificationEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.mapper.ProductNotificationEventMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,9 +18,11 @@ import java.util.Map;
 public class StockUpdateUseCase {
 
     private final ProductPersistenceAdapter productPersistenceAdapter;
+    private final ProductNotificationEventMessageUseCase productNotificationEventMessageUseCase;
 
-    public StockUpdateUseCase(ProductPersistenceAdapter productPersistenceAdapter) {
+    public StockUpdateUseCase(ProductPersistenceAdapter productPersistenceAdapter, ProductNotificationEventMessageUseCase productNotificationEventMessageUseCase) {
         this.productPersistenceAdapter = productPersistenceAdapter;
+        this.productNotificationEventMessageUseCase = productNotificationEventMessageUseCase;
     }
 
     public void execute(List<Long> productIds, Map<Long, Integer> productQuantities) {
@@ -31,6 +36,9 @@ public class StockUpdateUseCase {
                 product.adjustStock(quantity);
                 productPersistenceAdapter.save(product);
                 log.info("Product stock updated for product id: {}. Remaining stock: {}", product.getId(), product.getStockQuantity());
+
+                ProductNotificationEvent productNotificationEvent = ProductNotificationEventMapper.toEvent(product, quantity);
+                productNotificationEventMessageUseCase.execute(productNotificationEvent);
             }
         }
 

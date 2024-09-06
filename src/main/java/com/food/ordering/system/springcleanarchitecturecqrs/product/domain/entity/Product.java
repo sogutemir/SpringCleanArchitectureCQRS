@@ -3,7 +3,6 @@ package com.food.ordering.system.springcleanarchitecturecqrs.product.domain.enti
 import com.food.ordering.system.springcleanarchitecturecqrs.common.domain.entity.BaseEntity;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.enums.ProductStatus;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
@@ -42,6 +41,8 @@ public class Product extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus;
+
+
 
     protected void onCreate() {
         super.onCreate();
