@@ -11,7 +11,6 @@ The project follows Clean Architecture principles and is organized into several 
   - **Entities**: Core business entities like `Order`, `Product`, `User`, etc.
   - **Domain Services**: Business logic that cannot fit into a single entity.
   - **Enums**: Custom enums like `OrderStatus`, `ProductStatus`, `NotificationStatus` that define key states in the system.
-  - **DTOs**: Data Transfer Objects (DTOs) used to transfer data between layers.
 
 - **Application Layer**:  
   Defines the interaction between the Domain layer and the outside world. This layer includes:
@@ -20,6 +19,8 @@ The project follows Clean Architecture principles and is organized into several 
   - **Exception Handling**: Custom exceptions like `OrderNotFoundException`, `ProductNotFoundException`, and a global exception handler for graceful error handling.
   - **Payment Use Cases**: Including the `PaymentCreateUseCase`, which processes payments and handles insufficient funds scenarios.
   - **Notification Use Cases**: Including the `NotificationCreateUseCase`, which handles the creation of notifications with statuses.
+  - **DTOs**: Data Transfer Objects (DTOs) used to transfer data between layers.
+  - **Mappers**: Mapping between entities and DTOs.
 
 - **Infrastructure Layer**:  
   Responsible for external services and technologies like databases, messaging, and APIs. This includes:
@@ -181,12 +182,6 @@ To run all the unit tests:
 ```bash
 mvn test
 ```
-
-Unit tests are located in the `src/test/java` directory. The tests cover:
-
-- **Order Creation**: Verifying that an order is correctly created with valid inputs.
-- **Order Update**: Testing order updates with various scenarios including product stock validation.
-- **Order Deletion**: Ensuring that orders are correctly deleted and handling cases where orders are not found.
 
 ## Technologies Used
 
