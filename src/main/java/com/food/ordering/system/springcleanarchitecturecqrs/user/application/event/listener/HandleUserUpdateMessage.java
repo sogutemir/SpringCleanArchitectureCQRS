@@ -3,6 +3,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.user.application.ev
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.exception.KafkaSerializationException;
+import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.handler.KafkaListenerExceptionHandler;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command.UpdateUserUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.event.UserUpdateEvent;
 import lombok.extern.slf4j.Slf4j;
@@ -15,23 +16,26 @@ public class HandleUserUpdateMessage {
 
     private final ObjectMapper objectMapper;
     private final UpdateUserUseCase updateUserUseCase;
+    private final KafkaListenerExceptionHandler kafkaListenerExceptionHandler;
 
-    public HandleUserUpdateMessage(ObjectMapper objectMapper, UpdateUserUseCase updateUserUseCase) {
+    public HandleUserUpdateMessage(ObjectMapper objectMapper, UpdateUserUseCase updateUserUseCase, KafkaListenerExceptionHandler kafkaListenerExceptionHandler) {
         this.objectMapper = objectMapper;
         this.updateUserUseCase = updateUserUseCase;
+        this.kafkaListenerExceptionHandler = kafkaListenerExceptionHandler;
     }
 
     @KafkaListener(topics = "${spring.kafka.topic.user-update}", groupId = "user-update-group")
     public void listen(String userUpdateMessage) {
         try {
-            log.info("Received payment message from Kafka: {}", userUpdateMessage);
+            log.info("Received user update message from Kafka: {}", userUpdateMessage);
             UserUpdateEvent userUpdateEvent = objectMapper.readValue(userUpdateMessage, UserUpdateEvent.class);
-
             updateUserUseCase.execute(userUpdateEvent);
-
         } catch (JsonProcessingException e) {
-            throw new KafkaSerializationException("Failed to deserialize userUpdate message", e);
+            kafkaListenerExceptionHandler.handleSerializationException(e);
+        } catch (Exception e) {
+            kafkaListenerExceptionHandler.handleMessageProcessingException(e);
         }
     }
+
 
 }

@@ -3,8 +3,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.order.application.e
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.config.KafkaConfig;
-import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.exception.KafkaSerializationException;
-import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.exception.KafkaMessageSendException;
+import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.handler.KafkaProducerExceptionHandler;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.event.OrderEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -17,12 +16,15 @@ public class OrderEventProducer {
     private final KafkaTemplate<String, Object> kafkaTemplate;
     private final ObjectMapper objectMapper;
     private final KafkaConfig kafkaConfig;
+    private final KafkaProducerExceptionHandler kafkaProducerExceptionHandler;
 
     public OrderEventProducer(KafkaTemplate<String, Object> kafkaTemplate,
-                              ObjectMapper objectMapper, KafkaConfig kafkaConfig) {
+                              ObjectMapper objectMapper, KafkaConfig kafkaConfig,
+                              KafkaProducerExceptionHandler kafkaProducerExceptionHandler) {
         this.kafkaTemplate = kafkaTemplate;
         this.objectMapper = objectMapper;
         this.kafkaConfig = kafkaConfig;
+        this.kafkaProducerExceptionHandler = kafkaProducerExceptionHandler;
     }
 
     public void sendOrderEvent(OrderEvent orderEvent) {
@@ -32,10 +34,9 @@ public class OrderEventProducer {
             kafkaTemplate.send(kafkaConfig.getOrderTopic(), orderEventJson);
             log.info("Order event sent successfully");
         } catch (JsonProcessingException e) {
-            log.error("Failed to serialize order event to JSON", e);
-            throw new KafkaSerializationException("Failed to serialize order event to JSON", e);
+            kafkaProducerExceptionHandler.handleSerializationException(e);
         } catch (Exception e) {
-            throw new KafkaMessageSendException("Failed to send order event message", e);
+            kafkaProducerExceptionHandler.handleSendException(e);
         }
     }
 }

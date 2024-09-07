@@ -2,7 +2,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.order.application.e
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.exception.KafkaSerializationException;
+import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.handler.KafkaListenerExceptionHandler;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command.UpdateOrderUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.event.OrderUpdateEvent;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +15,13 @@ public class HandleOrderUpdateMessage {
 
     private final ObjectMapper objectMapper;
     private final UpdateOrderUseCase updateOrderUseCase;
+    private final KafkaListenerExceptionHandler kafkaListenerExceptionHandler;
 
-    public HandleOrderUpdateMessage(ObjectMapper objectMapper, UpdateOrderUseCase updateOrderUseCase) {
+    public HandleOrderUpdateMessage(ObjectMapper objectMapper, UpdateOrderUseCase updateOrderUseCase,
+                                    KafkaListenerExceptionHandler kafkaListenerExceptionHandler) {
         this.objectMapper = objectMapper;
         this.updateOrderUseCase = updateOrderUseCase;
+        this.kafkaListenerExceptionHandler = kafkaListenerExceptionHandler;
     }
 
     @KafkaListener(topics = "${spring.kafka.topic.order-update}", groupId = "order-update-group")
@@ -28,7 +31,10 @@ public class HandleOrderUpdateMessage {
             OrderUpdateEvent orderUpdateEvent = objectMapper.readValue(orderUpdateMessage, OrderUpdateEvent.class);
             updateOrderUseCase.execute(orderUpdateEvent.getOrderId(), orderUpdateEvent);
         } catch (JsonProcessingException e) {
-            throw new KafkaSerializationException("Failed to deserialize order message", e);
+            kafkaListenerExceptionHandler.handleSerializationException(e);
+        } catch (Exception e) {
+            kafkaListenerExceptionHandler.handleMessageProcessingException(e);
         }
     }
+
 }

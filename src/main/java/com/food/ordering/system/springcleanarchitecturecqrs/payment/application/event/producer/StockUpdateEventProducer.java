@@ -3,8 +3,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.payment.application
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.config.KafkaConfig;
-import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.exception.KafkaMessageSendException;
-import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.exception.KafkaSerializationException;
+import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.handler.KafkaProducerExceptionHandler;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.event.StockUpdateEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -17,14 +16,16 @@ public class StockUpdateEventProducer {
     private final KafkaTemplate<String, Object> kafkaTemplate;
     private final ObjectMapper objectMapper;
     private final KafkaConfig kafkaConfig;
+    private final KafkaProducerExceptionHandler kafkaProducerExceptionHandler;
 
     public StockUpdateEventProducer(KafkaTemplate<String, Object> kafkaTemplate,
-                                    ObjectMapper objectMapper, KafkaConfig kafkaConfig) {
+                                    ObjectMapper objectMapper, KafkaConfig kafkaConfig,
+                                    KafkaProducerExceptionHandler kafkaProducerExceptionHandler) {
         this.kafkaTemplate = kafkaTemplate;
         this.objectMapper = objectMapper;
         this.kafkaConfig = kafkaConfig;
+        this.kafkaProducerExceptionHandler = kafkaProducerExceptionHandler;
     }
-
 
     public void sendMessage(StockUpdateEvent stockUpdateEvent) {
         try {
@@ -33,10 +34,9 @@ public class StockUpdateEventProducer {
             kafkaTemplate.send(kafkaConfig.getStockUpdateTopic(), stockUpdateEventJson);
             log.info("StockUpdateEvent sent successfully");
         } catch (JsonProcessingException e) {
-            log.error("Failed to serialize StockUpdateEvent to JSON", e);
-            throw new KafkaSerializationException("Failed to serialize StockUpdateEvent to JSON", e);
+            kafkaProducerExceptionHandler.handleSerializationException(e);
         } catch (Exception e) {
-            throw new KafkaMessageSendException("Failed to send StockUpdateEvent message", e);
+            kafkaProducerExceptionHandler.handleSendException(e);
         }
     }
 }

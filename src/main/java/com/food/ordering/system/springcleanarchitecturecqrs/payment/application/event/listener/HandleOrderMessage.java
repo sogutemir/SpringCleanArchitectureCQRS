@@ -2,7 +2,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.payment.application
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.exception.KafkaSerializationException;
+import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.handler.KafkaListenerExceptionHandler;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.event.OrderEvent;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.usecase.crud.PaymentCreateUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.PaymentDto;
@@ -16,10 +16,13 @@ public class HandleOrderMessage {
 
     private final PaymentCreateUseCase paymentCreateUseCase;
     private final ObjectMapper objectMapper;
+    private final KafkaListenerExceptionHandler kafkaListenerExceptionHandler;
 
-    public HandleOrderMessage(PaymentCreateUseCase paymentCreateUseCase, ObjectMapper objectMapper) {
+    public HandleOrderMessage(PaymentCreateUseCase paymentCreateUseCase, ObjectMapper objectMapper,
+                              KafkaListenerExceptionHandler kafkaListenerExceptionHandler) {
         this.paymentCreateUseCase = paymentCreateUseCase;
         this.objectMapper = objectMapper;
+        this.kafkaListenerExceptionHandler = kafkaListenerExceptionHandler;
     }
 
     @KafkaListener(topics = "${spring.kafka.topic.order}", groupId = "payment-group")
@@ -27,17 +30,17 @@ public class HandleOrderMessage {
         try {
             log.info("Received order message from Kafka: {}", orderMessage);
             OrderEvent orderEvent = objectMapper.readValue(orderMessage, OrderEvent.class);
-
             PaymentDto paymentDTO = PaymentDto.builder()
                     .orderId(orderEvent.getOrderId())
                     .userId(orderEvent.getUserId())
                     .amount(orderEvent.getTotalAmount())
                     .productQuantities(orderEvent.getProductQuantities())
                     .build();
-
             paymentCreateUseCase.execute(paymentDTO);
         } catch (JsonProcessingException e) {
-            throw new KafkaSerializationException("Failed to deserialize order message", e);
+            kafkaListenerExceptionHandler.handleSerializationException(e);
+        } catch (Exception e) {
+            kafkaListenerExceptionHandler.handleMessageProcessingException(e);
         }
     }
 

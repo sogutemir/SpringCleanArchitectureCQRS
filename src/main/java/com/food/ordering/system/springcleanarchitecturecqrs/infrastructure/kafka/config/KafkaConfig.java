@@ -29,4 +29,10 @@ public class KafkaConfig {
     @Value("${spring.kafka.topic.order-update}")
     private String orderUpdateTopic;
 
+    @Value("${spring.kafka.topic.producer-exception}")
+    private String kafkaProducerExceptionTopic;
+
+    @Value("${spring.kafka.topic.listener-exception}")
+    private String kafkaListenerExceptionTopic;
+
 }

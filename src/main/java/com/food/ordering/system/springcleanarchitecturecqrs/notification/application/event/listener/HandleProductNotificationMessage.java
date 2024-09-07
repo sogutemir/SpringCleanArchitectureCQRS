@@ -2,7 +2,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.notification.applic
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.exception.KafkaSerializationException;
+import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.handler.KafkaListenerExceptionHandler;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.usecase.crud.NotificationCreateUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.NotificationDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.enums.NotificationStatus;
@@ -17,10 +17,13 @@ public class HandleProductNotificationMessage {
 
     private final ObjectMapper objectMapper;
     private final NotificationCreateUseCase notificationCreateUseCase;
+    private final KafkaListenerExceptionHandler kafkaListenerExceptionHandler;
 
-    public HandleProductNotificationMessage(ObjectMapper objectMapper, NotificationCreateUseCase notificationCreateUseCase) {
+    public HandleProductNotificationMessage(ObjectMapper objectMapper, NotificationCreateUseCase notificationCreateUseCase,
+                                            KafkaListenerExceptionHandler kafkaListenerExceptionHandler) {
         this.objectMapper = objectMapper;
         this.notificationCreateUseCase = notificationCreateUseCase;
+        this.kafkaListenerExceptionHandler = kafkaListenerExceptionHandler;
     }
 
     @KafkaListener(topics = "${spring.kafka.topic.product-notification}", groupId = "product-notification-group")
@@ -28,11 +31,9 @@ public class HandleProductNotificationMessage {
         try {
             log.info("Received product message from Kafka: {}", productMessage);
             ProductNotificationEvent productNotificationEvent = objectMapper.readValue(productMessage, ProductNotificationEvent.class);
-
             String message = productNotificationEvent.getMessage().isEmpty()
                     ? "Product purchased by: " + productNotificationEvent.getUserName()
                     : productNotificationEvent.getMessage() + ": " + productNotificationEvent.getProductId();
-
             NotificationDto notificationDto = NotificationDto.builder()
                     .productId(productNotificationEvent.getProductId())
                     .orderId(productNotificationEvent.getOrderId())
@@ -40,11 +41,12 @@ public class HandleProductNotificationMessage {
                     .message(message)
                     .status(NotificationStatus.SENT)
                     .build();
-
             notificationCreateUseCase.execute(notificationDto);
-
         } catch (JsonProcessingException e) {
-            throw new KafkaSerializationException("Failed to deserialize product message", e);
+            kafkaListenerExceptionHandler.handleSerializationException(e);
+        } catch (Exception e) {
+            kafkaListenerExceptionHandler.handleMessageProcessingException(e);
         }
     }
+
 }
