@@ -2,10 +2,10 @@ package com.food.ordering.system.springcleanarchitecturecqrs.order.application.u
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.message.SendOrderEventUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.crud.OrderDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.crud.OrderDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.event.OrderEvent;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderMapper;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.dto.OrderEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.mapper.OrderMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.helper.OrderCalculationHelper;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.validation.ProductValidationUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.validation.UserValidationUseCase;

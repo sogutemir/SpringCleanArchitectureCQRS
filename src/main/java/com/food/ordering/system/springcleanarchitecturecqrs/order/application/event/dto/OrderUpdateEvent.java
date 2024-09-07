@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.order.domain.event;
+package com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.dto;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.enums.OrderStatus;
 import lombok.*;

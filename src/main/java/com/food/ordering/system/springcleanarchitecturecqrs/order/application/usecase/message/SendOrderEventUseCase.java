@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.message;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.producer.OrderEventProducer;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.event.OrderEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.dto.OrderEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

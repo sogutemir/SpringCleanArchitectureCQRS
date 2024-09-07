@@ -1,6 +1,6 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper;
+package com.food.ordering.system.springcleanarchitecturecqrs.order.application.mapper;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.crud.OrderDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.crud.OrderDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;

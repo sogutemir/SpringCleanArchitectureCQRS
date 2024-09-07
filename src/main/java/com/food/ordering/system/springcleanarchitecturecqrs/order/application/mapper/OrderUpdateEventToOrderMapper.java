@@ -1,8 +1,8 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper;
+package com.food.ordering.system.springcleanarchitecturecqrs.order.application.mapper;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.enums.OrderStatus;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.event.OrderUpdateEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.dto.OrderUpdateEvent;
 import org.springframework.stereotype.Component;
 
 @Component

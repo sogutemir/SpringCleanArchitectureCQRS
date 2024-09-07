@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.crud;
+package com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.crud;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;

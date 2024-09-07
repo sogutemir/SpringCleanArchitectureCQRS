@@ -3,7 +3,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.order.application.s
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.service.query.OrderQueryService;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.query.FindOrderByIdUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.query.FindOrdersByUserIdUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.query.OrderResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.query.OrderResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

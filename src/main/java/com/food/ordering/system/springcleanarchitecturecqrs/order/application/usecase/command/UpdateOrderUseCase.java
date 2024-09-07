@@ -4,11 +4,11 @@ import com.food.ordering.system.springcleanarchitecturecqrs.order.application.ex
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.validation.ProductValidationUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.helper.OrderCalculationHelper;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.crud.OrderDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.crud.OrderDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.event.OrderUpdateEvent;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderMapper;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderUpdateEventToOrderMapper;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.dto.OrderUpdateEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.mapper.OrderMapper;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.mapper.OrderUpdateEventToOrderMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

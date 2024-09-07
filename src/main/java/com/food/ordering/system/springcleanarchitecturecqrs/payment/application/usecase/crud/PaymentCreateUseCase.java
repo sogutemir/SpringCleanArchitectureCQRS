@@ -4,13 +4,13 @@ import com.food.ordering.system.springcleanarchitecturecqrs.order.application.us
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.query.FindOrderByIdUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.enums.OrderStatus;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderUpdateEventToOrderMapper;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.mapper.OrderUpdateEventToOrderMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.helper.PaymentHelper;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.usecase.message.PaymentCreateMessageUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.dataaccess.adapter.PaymentPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.crud.PaymentDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.model.PaymentCreatedEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.dto.PaymentCreatedEvent;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.mapper.PaymentDtoToPaymentEventMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.mapper.PaymentMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.message.StockUpdateMessageUseCase;
