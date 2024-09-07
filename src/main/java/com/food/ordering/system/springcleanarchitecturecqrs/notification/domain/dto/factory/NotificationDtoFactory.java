@@ -2,20 +2,20 @@ package com.food.ordering.system.springcleanarchitecturecqrs.notification.domain
 
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.crud.NotificationDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.enums.NotificationStatus;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.event.PaymentEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.model.PaymentCreatedEvent;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.event.ProductNotificationEvent;
 import org.springframework.stereotype.Component;
 
 @Component
 public class NotificationDtoFactory {
 
-    public static NotificationDto createNotificationDto(PaymentEvent paymentEvent) {
+    public static NotificationDto createNotificationDto(PaymentCreatedEvent paymentCreatedEvent) {
         NotificationDto.NotificationDtoBuilder notificationBuilder = NotificationDto.builder()
-                .orderId(paymentEvent.getPaymentDTO().getOrderId())
-                .userId(paymentEvent.getPaymentDTO().getUserId());
+                .orderId(paymentCreatedEvent.getPaymentDTO().getOrderId())
+                .userId(paymentCreatedEvent.getPaymentDTO().getUserId());
 
-        if (paymentEvent.getPaymentDTO().getPaymentId() != null) {
-            notificationBuilder.paymentId(paymentEvent.getPaymentDTO().getPaymentId())
+        if (paymentCreatedEvent.getPaymentDTO().getPaymentId() != null) {
+            notificationBuilder.paymentId(paymentCreatedEvent.getPaymentDTO().getPaymentId())
                     .message("Payment has been created successfully")
                     .status(NotificationStatus.SENT);
         } else {

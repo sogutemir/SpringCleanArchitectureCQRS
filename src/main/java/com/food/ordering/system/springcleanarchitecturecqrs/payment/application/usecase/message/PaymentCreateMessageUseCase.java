@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.payment.application.usecase.message;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.producer.PaymentEventProducer;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.event.PaymentEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.model.PaymentCreatedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +15,10 @@ public class PaymentCreateMessageUseCase {
         this.paymentEventProducer = paymentEventProducer;
     }
 
-    public void execute(PaymentEvent paymentEvent) {
-        log.info("Payment create message use case started. PaymentEventDTO: {}", paymentEvent);
+    public void execute(PaymentCreatedEvent paymentCreatedEvent) {
+        log.info("Payment create message use case started. PaymentEventDTO: {}", paymentCreatedEvent);
         try {
-            paymentEventProducer.sendMessage(paymentEvent);
+            paymentEventProducer.sendMessage(paymentCreatedEvent);
         } catch (Exception e) {
             log.error("Failed to send payment event message", e);
             throw new RuntimeException("Failed to send payment event message", e);

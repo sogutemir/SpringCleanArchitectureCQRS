@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.crud;
+package com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.crud;
 
 import jakarta.validation.constraints.DecimalMin;
 import lombok.*;

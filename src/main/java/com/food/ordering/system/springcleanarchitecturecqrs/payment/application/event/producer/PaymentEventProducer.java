@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.config.KafkaConfig;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.handler.KafkaProducerExceptionHandler;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.event.PaymentEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.model.PaymentCreatedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -27,10 +27,10 @@ public class PaymentEventProducer {
         this.kafkaProducerExceptionHandler = kafkaProducerExceptionHandler;
     }
 
-    public void sendMessage(PaymentEvent paymentEvent) {
+    public void sendMessage(PaymentCreatedEvent paymentCreatedEvent) {
         try {
-            log.info("Sending PaymentEvent event: {}", paymentEvent);
-            String paymentEventJson = objectMapper.writeValueAsString(paymentEvent);
+            log.info("Sending PaymentEvent event: {}", paymentCreatedEvent);
+            String paymentEventJson = objectMapper.writeValueAsString(paymentCreatedEvent);
             kafkaTemplate.send(kafkaConfig.getPaymentCreateTopic(), paymentEventJson);
             log.info("Payment event sent successfully");
         } catch (JsonProcessingException e) {

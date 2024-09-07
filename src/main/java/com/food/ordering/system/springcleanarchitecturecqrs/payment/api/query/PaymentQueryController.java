@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.payment.api.query;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.service.query.PaymentQueryService;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.query.PaymentResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.query.PaymentResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

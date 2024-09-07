@@ -2,7 +2,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.payment.application
 
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.service.query.PaymentQueryService;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.usecase.query.PaymentFindByUserIdUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.query.PaymentResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.query.PaymentResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

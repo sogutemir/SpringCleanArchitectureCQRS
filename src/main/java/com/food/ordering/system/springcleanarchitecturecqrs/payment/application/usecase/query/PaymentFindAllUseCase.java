@@ -2,9 +2,9 @@ package com.food.ordering.system.springcleanarchitecturecqrs.payment.application
 
 import java.util.List;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.dataaccess.adapter.PaymentPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.query.PaymentResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.query.PaymentResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.mapper.PaymentResponseMapper;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.mapper.PaymentResponseMapper;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
