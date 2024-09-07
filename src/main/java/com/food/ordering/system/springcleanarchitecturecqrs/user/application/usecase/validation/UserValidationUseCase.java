@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.common.application.service;
+package com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.validation;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class UserValidationService {
+public class UserValidationUseCase {
 
     private final UserPersistenceAdapter userPersistenceAdapter;
 
-    public UserValidationService(UserPersistenceAdapter userPersistenceAdapter) {
+    public UserValidationUseCase(UserPersistenceAdapter userPersistenceAdapter) {
         this.userPersistenceAdapter = userPersistenceAdapter;
     }
 

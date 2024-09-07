@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.common.application.service;
+package com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.validation;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.exception.OrderNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class OrderValidationService {
+public class OrderValidationUseCase {
 
     private final OrderPersistenceAdapter orderPersistenceAdapter;
 
-    public OrderValidationService(OrderPersistenceAdapter orderPersistenceAdapter) {
+    public OrderValidationUseCase(OrderPersistenceAdapter orderPersistenceAdapter) {
         this.orderPersistenceAdapter = orderPersistenceAdapter;
     }
 

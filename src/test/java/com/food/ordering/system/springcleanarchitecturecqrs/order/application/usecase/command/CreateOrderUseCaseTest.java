@@ -2,8 +2,8 @@ package com.food.ordering.system.springcleanarchitecturecqrs.order.application.u
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
-import com.food.ordering.system.springcleanarchitecturecqrs.common.application.service.ProductValidationService;
-import com.food.ordering.system.springcleanarchitecturecqrs.common.application.service.UserValidationService;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.validation.ProductValidationUseCase;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.validation.UserValidationUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.helper.OrderCalculationHelper;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.exception.InsufficientStockException;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.exception.ProductNotFoundException;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Transactional
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-@Import({CreateOrderUseCase.class, UserValidationService.class, ProductValidationService.class, OrderCalculationHelper.class, OrderPersistenceAdapter.class})
+@Import({CreateOrderUseCase.class, UserValidationUseCase.class, ProductValidationUseCase.class, OrderCalculationHelper.class, OrderPersistenceAdapter.class})
 public class CreateOrderUseCaseTest {
 
     @Autowired

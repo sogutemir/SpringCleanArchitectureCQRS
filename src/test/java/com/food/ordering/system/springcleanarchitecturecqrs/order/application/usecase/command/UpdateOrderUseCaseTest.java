@@ -2,18 +2,14 @@ package com.food.ordering.system.springcleanarchitecturecqrs.order.application.u
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
-import com.food.ordering.system.springcleanarchitecturecqrs.common.application.service.ProductValidationService;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.application.exception.OrderNotFoundException;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.validation.ProductValidationUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.helper.OrderCalculationHelper;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderMapper;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.application.exception.InsufficientStockException;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.application.exception.ProductNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.dataaccess.repository.query.ProductQueryRepository;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.repository.query.UserQueryRepository;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -24,12 +20,10 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @Transactional
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-@Import({UpdateOrderUseCase.class, ProductValidationService.class, OrderCalculationHelper.class, OrderPersistenceAdapter.class})
+@Import({UpdateOrderUseCase.class, ProductValidationUseCase.class, OrderCalculationHelper.class, OrderPersistenceAdapter.class})
 public class UpdateOrderUseCaseTest {
 
     @Autowired

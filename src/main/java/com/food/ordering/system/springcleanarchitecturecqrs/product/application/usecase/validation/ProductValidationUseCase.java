@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.common.application.service;
+package com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.validation;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.exception.InsufficientStockException;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.exception.ProductNotFoundException;
@@ -15,12 +15,12 @@ import java.util.Map;
 
 @Slf4j
 @Component
-public class ProductValidationService {
+public class ProductValidationUseCase {
 
     private final ProductPersistenceAdapter productPersistenceAdapter;
     private final ProductNotificationEventMessageUseCase productNotificationEventMessageUseCase;
 
-    public ProductValidationService(ProductPersistenceAdapter productPersistenceAdapter, ProductNotificationEventMessageUseCase productNotificationEventMessageUseCase) {
+    public ProductValidationUseCase(ProductPersistenceAdapter productPersistenceAdapter, ProductNotificationEventMessageUseCase productNotificationEventMessageUseCase) {
         this.productPersistenceAdapter = productPersistenceAdapter;
         this.productNotificationEventMessageUseCase = productNotificationEventMessageUseCase;
     }
