@@ -1,6 +1,6 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.mapper;
+package com.food.ordering.system.springcleanarchitecturecqrs.notification.application.mapper;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.crud.NotificationDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.dto.crud.NotificationDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.entity.Notification;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;

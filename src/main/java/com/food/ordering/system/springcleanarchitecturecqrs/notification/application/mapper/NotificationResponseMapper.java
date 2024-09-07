@@ -1,6 +1,6 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.mapper;
+package com.food.ordering.system.springcleanarchitecturecqrs.notification.application.mapper;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.query.NotificationResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.dto.query.NotificationResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.entity.Notification;
 
 public class NotificationResponseMapper {

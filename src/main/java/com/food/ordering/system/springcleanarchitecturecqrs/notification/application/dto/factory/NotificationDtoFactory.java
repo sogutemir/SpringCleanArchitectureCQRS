@@ -1,6 +1,6 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.factory;
+package com.food.ordering.system.springcleanarchitecturecqrs.notification.application.dto.factory;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.crud.NotificationDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.dto.crud.NotificationDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.enums.NotificationStatus;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.dto.PaymentCreatedEvent;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto.ProductNotificationEvent;

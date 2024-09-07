@@ -2,9 +2,9 @@ package com.food.ordering.system.springcleanarchitecturecqrs.notification.applic
 
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.service.query.NotificationQueryService;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.usecase.query.NotificationFindByUserIdUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.query.NotificationResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.dto.query.NotificationResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.entity.Notification;
-import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.mapper.NotificationResponseMapper;
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.mapper.NotificationResponseMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
