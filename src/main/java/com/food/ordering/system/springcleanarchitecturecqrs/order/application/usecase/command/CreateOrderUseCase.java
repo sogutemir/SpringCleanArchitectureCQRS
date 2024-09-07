@@ -1,10 +1,11 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command;
 
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.factory.OrderEventDtoFactory;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.message.SendOrderEventUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.crud.OrderDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.dto.OrderEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.event.OrderCreateEventDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.mapper.OrderMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.helper.OrderCalculationHelper;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.validation.ProductValidationUseCase;
@@ -55,13 +56,8 @@ public class CreateOrderUseCase {
             Order savedOrder = orderPersistenceAdapter.save(order);
             log.info("Order created successfully with id: {}", savedOrder.getId());
 
-            OrderEvent orderEvent = new OrderEvent(
-                    savedOrder.getId(),
-                    savedOrder.getTotalAmount(),
-                    savedOrder.getUser().getId(),
-                    productIdQuantityMap
-            );
-            sendOrderEventUseCase.execute(orderEvent);
+            OrderCreateEventDto orderCreateEventDto = OrderEventDtoFactory.createOrderEvent(savedOrder, productIdQuantityMap);
+            sendOrderEventUseCase.execute(orderCreateEventDto);
 
             return OrderMapper.toDTO(savedOrder, productIdQuantityMap);
 

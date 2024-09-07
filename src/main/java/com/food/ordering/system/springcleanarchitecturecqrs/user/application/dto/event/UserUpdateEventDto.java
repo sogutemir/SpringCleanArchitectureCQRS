@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.user.application.event.dto;
+package com.food.ordering.system.springcleanarchitecturecqrs.user.application.dto.event;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserUpdateEvent {
+public class UserUpdateEventDto {
     private Long userId;
     private String name;
     private String email;

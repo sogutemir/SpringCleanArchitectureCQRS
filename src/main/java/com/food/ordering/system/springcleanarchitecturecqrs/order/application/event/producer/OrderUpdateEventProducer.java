@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.config.KafkaConfig;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.helper.KafkaCallbackHelper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.handler.KafkaProducerExceptionHandler;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.dto.OrderUpdateEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.event.OrderUpdateEventDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -31,10 +31,10 @@ public class OrderUpdateEventProducer {
         this.kafkaProducerExceptionHandler = kafkaProducerExceptionHandler;
     }
 
-    public void sendOrderUpdateEvent(OrderUpdateEvent orderUpdateEvent) {
+    public void sendOrderUpdateEvent(OrderUpdateEventDto orderUpdateEventDto) {
         try {
-            log.info("Sending orderUpdate event: {}", orderUpdateEvent);
-            String orderUpdateJson = objectMapper.writeValueAsString(orderUpdateEvent);
+            log.info("Sending orderUpdate event: {}", orderUpdateEventDto);
+            String orderUpdateJson = objectMapper.writeValueAsString(orderUpdateEventDto);
             kafkaCallbackHelper.sendMessage(kafkaTemplate, kafkaConfig.getOrderUpdateTopic(), orderUpdateJson);
         } catch (JsonProcessingException e) {
             kafkaProducerExceptionHandler.handleSerializationException(e);

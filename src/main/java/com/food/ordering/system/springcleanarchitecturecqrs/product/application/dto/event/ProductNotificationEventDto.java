@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto;
+package com.food.ordering.system.springcleanarchitecturecqrs.product.application.dto.event;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProductNotificationEvent {
+public class ProductNotificationEventDto {
     private Long orderId;
     private Long userId;
     private Long productId;

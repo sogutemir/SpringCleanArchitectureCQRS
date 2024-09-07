@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.handler.KafkaListenerExceptionHandler;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.usecase.crud.NotificationCreateUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.dto.factory.NotificationDtoFactory;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.dto.PaymentCreatedEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.event.PaymentCreatedEventDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
@@ -31,9 +31,9 @@ public class HandlePaymentNotificationMessage {
     public void listen(String paymentMessage, Acknowledgment acknowledgment) {
         try {
             log.info("Received payment message from Kafka: {}", paymentMessage);
-            PaymentCreatedEvent paymentCreatedEvent = objectMapper.readValue(paymentMessage, PaymentCreatedEvent.class);
+            PaymentCreatedEventDto paymentCreatedEventDto = objectMapper.readValue(paymentMessage, PaymentCreatedEventDto.class);
 
-            notificationCreateUseCase.execute(NotificationDtoFactory.createNotificationDto(paymentCreatedEvent));
+            notificationCreateUseCase.execute(NotificationDtoFactory.createNotificationDto(paymentCreatedEventDto));
 
             acknowledgment.acknowledge();
         } catch (JsonProcessingException e) {

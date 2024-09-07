@@ -3,7 +3,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.payment.application
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.handler.KafkaListenerExceptionHandler;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.dto.OrderEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.event.OrderCreateEventDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.usecase.crud.PaymentCreateUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.crud.PaymentDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.factory.PaymentDtoFactory;
@@ -31,9 +31,9 @@ public class HandleOrderMessage {
     public void listen(String orderMessage, Acknowledgment acknowledgment) {
         try {
             log.info("Received order message from Kafka: {}", orderMessage);
-            OrderEvent orderEvent = objectMapper.readValue(orderMessage, OrderEvent.class);
+            OrderCreateEventDto orderCreateEventDto = objectMapper.readValue(orderMessage, OrderCreateEventDto.class);
 
-            PaymentDto paymentDTO = PaymentDtoFactory.createPaymentDto(orderEvent);
+            PaymentDto paymentDTO = PaymentDtoFactory.createPaymentDto(orderCreateEventDto);
 
             paymentCreateUseCase.execute(paymentDTO);
 

@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.dto;
+package com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.event;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.crud.PaymentDto;
 import lombok.*;
@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PaymentCreatedEvent {
+public class PaymentCreatedEventDto {
     private boolean success;
     private String message;
     private PaymentDto paymentDTO;

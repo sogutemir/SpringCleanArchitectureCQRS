@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.config.KafkaConfig;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.helper.KafkaCallbackHelper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.handler.KafkaProducerExceptionHandler;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto.ProductNotificationEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.dto.event.ProductNotificationEventDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -31,10 +31,10 @@ public class ProductNotificationEventProducer {
         this.kafkaProducerExceptionHandler = kafkaProducerExceptionHandler;
     }
 
-    public void sendMessage(ProductNotificationEvent productNotificationEvent) {
+    public void sendMessage(ProductNotificationEventDto productNotificationEventDto) {
         try {
-            log.info("Sending ProductNotificationEvent event: {}", productNotificationEvent);
-            String productNotificationEventJson = objectMapper.writeValueAsString(productNotificationEvent);
+            log.info("Sending ProductNotificationEvent event: {}", productNotificationEventDto);
+            String productNotificationEventJson = objectMapper.writeValueAsString(productNotificationEventDto);
             kafkaCallbackHelper.sendMessage(kafkaTemplate, kafkaConfig.getProductNotificationTopic(), productNotificationEventJson);
         } catch (JsonProcessingException e) {
             kafkaProducerExceptionHandler.handleSerializationException(e);

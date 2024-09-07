@@ -3,7 +3,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.product.application
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.message.ProductNotificationEventMessageUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.dataaccess.adapter.ProductPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto.ProductNotificationEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.dto.event.ProductNotificationEventDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.mapper.ProductNotificationEventMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -37,8 +37,8 @@ public class StockUpdateUseCase {
                 productPersistenceAdapter.save(product);
                 log.info("Product stock updated for product id: {}. Remaining stock: {}", product.getId(), product.getStockQuantity());
 
-                ProductNotificationEvent productNotificationEvent = ProductNotificationEventMapper.toEvent(product, quantity);
-                productNotificationEventMessageUseCase.execute(productNotificationEvent);
+                ProductNotificationEventDto productNotificationEventDto = ProductNotificationEventMapper.toEvent(product, quantity);
+                productNotificationEventMessageUseCase.execute(productNotificationEventDto);
             }
         }
 

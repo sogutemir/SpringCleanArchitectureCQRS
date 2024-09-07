@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.message;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.producer.OrderEventProducer;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.dto.OrderEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.event.OrderCreateEventDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -15,13 +15,13 @@ public class SendOrderEventUseCase {
         this.orderEventProducer = orderEventProducer;
     }
 
-    public void execute(OrderEvent orderEvent) {
+    public void execute(OrderCreateEventDto orderCreateEventDto) {
         try {
-            log.info("Sending order event for order id: {}", orderEvent.getOrderId());
-            orderEventProducer.sendOrderEvent(orderEvent);
-            log.info("Order event sent successfully for order id: {}", orderEvent.getOrderId());
+            log.info("Sending order event for order id: {}", orderCreateEventDto.getOrderId());
+            orderEventProducer.sendOrderEvent(orderCreateEventDto);
+            log.info("Order event sent successfully for order id: {}", orderCreateEventDto.getOrderId());
         } catch (Exception kafkaException) {
-            log.error("Error occurred while sending order event for order id: {}. Error: {}", orderEvent.getOrderId(), kafkaException.getMessage(), kafkaException);
+            log.error("Error occurred while sending order event for order id: {}. Error: {}", orderCreateEventDto.getOrderId(), kafkaException.getMessage(), kafkaException);
         }
     }
 }

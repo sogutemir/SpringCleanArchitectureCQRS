@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.handler.KafkaListenerExceptionHandler;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command.UpdateUserUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.application.event.dto.UserUpdateEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.dto.event.UserUpdateEventDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
@@ -28,8 +28,8 @@ public class HandleUserUpdateMessage {
     public void listen(String userUpdateMessage, Acknowledgment acknowledgment) {
         try {
             log.info("Received user update message from Kafka: {}", userUpdateMessage);
-            UserUpdateEvent userUpdateEvent = objectMapper.readValue(userUpdateMessage, UserUpdateEvent.class);
-            updateUserUseCase.execute(userUpdateEvent);
+            UserUpdateEventDto userUpdateEventDto = objectMapper.readValue(userUpdateMessage, UserUpdateEventDto.class);
+            updateUserUseCase.execute(userUpdateEventDto);
             acknowledgment.acknowledge();
         } catch (JsonProcessingException e) {
             kafkaListenerExceptionHandler.handleSerializationException(e);

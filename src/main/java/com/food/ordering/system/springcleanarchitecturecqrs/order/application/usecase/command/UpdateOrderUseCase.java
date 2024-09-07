@@ -6,7 +6,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.product.application.
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.helper.OrderCalculationHelper;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.crud.OrderDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.dto.OrderUpdateEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.event.OrderUpdateEventDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.mapper.OrderMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.mapper.OrderUpdateEventToOrderMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
@@ -57,14 +57,14 @@ public class UpdateOrderUseCase {
         }
     }
 
-    public void execute(Long id, OrderUpdateEvent orderUpdateEvent) {
+    public void execute(Long id, OrderUpdateEventDto orderUpdateEventDto) {
         try {
             log.info("Updating order status for order id: {}", id);
             Optional<Order> existingOrder = orderPersistenceAdapter.findById(id);
 
             if (existingOrder.isPresent()) {
                 Order order = existingOrder.get();
-                OrderUpdateEventToOrderMapper.updateOrderStatus(orderUpdateEvent, order);
+                OrderUpdateEventToOrderMapper.updateOrderStatus(orderUpdateEventDto, order);
                 orderPersistenceAdapter.save(order);
                 log.info("Order status updated successfully for order id: {}", id);
             } else {

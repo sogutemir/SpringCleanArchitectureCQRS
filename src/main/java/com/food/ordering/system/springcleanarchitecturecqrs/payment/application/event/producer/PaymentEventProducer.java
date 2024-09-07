@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.config.KafkaConfig;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.helper.KafkaCallbackHelper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.handler.KafkaProducerExceptionHandler;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.dto.PaymentCreatedEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.event.PaymentCreatedEventDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -31,10 +31,10 @@ public class PaymentEventProducer {
         this.kafkaProducerExceptionHandler = kafkaProducerExceptionHandler;
     }
 
-    public void sendMessage(PaymentCreatedEvent paymentCreatedEvent) {
+    public void sendMessage(PaymentCreatedEventDto paymentCreatedEventDto) {
         try {
-            log.info("Sending PaymentEvent event: {}", paymentCreatedEvent);
-            String paymentEventJson = objectMapper.writeValueAsString(paymentCreatedEvent);
+            log.info("Sending PaymentEvent event: {}", paymentCreatedEventDto);
+            String paymentEventJson = objectMapper.writeValueAsString(paymentCreatedEventDto);
             kafkaCallbackHelper.sendMessage(kafkaTemplate, kafkaConfig.getPaymentCreateTopic(), paymentEventJson);
         } catch (JsonProcessingException e) {
             kafkaProducerExceptionHandler.handleSerializationException(e);

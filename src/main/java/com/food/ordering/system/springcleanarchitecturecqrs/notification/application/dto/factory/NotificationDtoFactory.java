@@ -2,20 +2,20 @@ package com.food.ordering.system.springcleanarchitecturecqrs.notification.applic
 
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.dto.crud.NotificationDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.enums.NotificationStatus;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.dto.PaymentCreatedEvent;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto.ProductNotificationEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.event.PaymentCreatedEventDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.dto.event.ProductNotificationEventDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class NotificationDtoFactory {
 
-    public static NotificationDto createNotificationDto(PaymentCreatedEvent paymentCreatedEvent) {
+    public static NotificationDto createNotificationDto(PaymentCreatedEventDto paymentCreatedEventDto) {
         NotificationDto.NotificationDtoBuilder notificationBuilder = NotificationDto.builder()
-                .orderId(paymentCreatedEvent.getPaymentDTO().getOrderId())
-                .userId(paymentCreatedEvent.getPaymentDTO().getUserId());
+                .orderId(paymentCreatedEventDto.getPaymentDTO().getOrderId())
+                .userId(paymentCreatedEventDto.getPaymentDTO().getUserId());
 
-        if (paymentCreatedEvent.getPaymentDTO().getPaymentId() != null) {
-            notificationBuilder.paymentId(paymentCreatedEvent.getPaymentDTO().getPaymentId())
+        if (paymentCreatedEventDto.getPaymentDTO().getPaymentId() != null) {
+            notificationBuilder.paymentId(paymentCreatedEventDto.getPaymentDTO().getPaymentId())
                     .message("Payment has been created successfully")
                     .status(NotificationStatus.SENT);
         } else {
@@ -26,15 +26,15 @@ public class NotificationDtoFactory {
         return notificationBuilder.build();
     }
 
-    public static NotificationDto createProductNotificationDto(ProductNotificationEvent productNotificationEvent) {
-        String message = productNotificationEvent.getMessage().isEmpty()
-                ? "Product purchased by: " + productNotificationEvent.getUserName()
-                : productNotificationEvent.getMessage() + ": " + productNotificationEvent.getProductId();
+    public static NotificationDto createProductNotificationDto(ProductNotificationEventDto productNotificationEventDto) {
+        String message = productNotificationEventDto.getMessage().isEmpty()
+                ? "Product purchased by: " + productNotificationEventDto.getUserName()
+                : productNotificationEventDto.getMessage() + ": " + productNotificationEventDto.getProductId();
 
         return NotificationDto.builder()
-                .productId(productNotificationEvent.getProductId())
-                .orderId(productNotificationEvent.getOrderId())
-                .userId(productNotificationEvent.getUserId())
+                .productId(productNotificationEventDto.getProductId())
+                .orderId(productNotificationEventDto.getOrderId())
+                .userId(productNotificationEventDto.getUserId())
                 .message(message)
                 .status(NotificationStatus.SENT)
                 .build();

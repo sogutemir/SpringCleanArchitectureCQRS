@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto;
+package com.food.ordering.system.springcleanarchitecturecqrs.product.application.dto.event;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StockUpdateEvent {
+public class StockUpdateEventDto {
     private Long orderId;
     private Map<Long, Integer> productQuantities;
 }

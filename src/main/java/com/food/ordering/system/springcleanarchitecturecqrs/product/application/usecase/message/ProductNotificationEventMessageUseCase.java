@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.message;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.producer.ProductNotificationEventProducer;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto.ProductNotificationEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.dto.event.ProductNotificationEventDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +15,9 @@ public class ProductNotificationEventMessageUseCase {
         this.productNotificationEventProducer = productNotificationEventProducer;
     }
 
-    public void execute(ProductNotificationEvent productNotificationEvent) {
-        log.info("Executing ProductEventMessageUseCase for ProductEvent: {}", productNotificationEvent);
-        productNotificationEventProducer.sendMessage(productNotificationEvent);
+    public void execute(ProductNotificationEventDto productNotificationEventDto) {
+        log.info("Executing ProductEventMessageUseCase for ProductEvent: {}", productNotificationEventDto);
+        productNotificationEventProducer.sendMessage(productNotificationEventDto);
         log.info("ProductEventMessageUseCase execution completed.");
     }
 }

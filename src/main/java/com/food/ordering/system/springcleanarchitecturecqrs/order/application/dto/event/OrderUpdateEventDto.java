@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.dto;
+package com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.event;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.enums.OrderStatus;
 import lombok.*;
@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderUpdateEvent {
+public class OrderUpdateEventDto {
     private Long orderId;
     private OrderStatus status;
 }

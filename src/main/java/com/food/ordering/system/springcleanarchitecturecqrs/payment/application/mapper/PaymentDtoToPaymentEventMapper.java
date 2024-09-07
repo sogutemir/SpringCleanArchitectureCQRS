@@ -1,15 +1,15 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.payment.application.mapper;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.crud.PaymentDto;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.dto.PaymentCreatedEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.event.PaymentCreatedEventDto;
 
 public class PaymentDtoToPaymentEventMapper {
 
-    public static PaymentCreatedEvent toEvent(PaymentDto paymentDTO) {
+    public static PaymentCreatedEventDto toEvent(PaymentDto paymentDTO) {
         if (paymentDTO == null) {
             return null;
         }
-        return PaymentCreatedEvent.builder()
+        return PaymentCreatedEventDto.builder()
                 .success(true)
                 .message("Payment created")
                 .paymentDTO(paymentDTO)

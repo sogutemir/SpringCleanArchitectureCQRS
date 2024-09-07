@@ -4,7 +4,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.user.application.exc
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.dto.crud.UserDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.application.event.dto.UserUpdateEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.dto.event.UserUpdateEventDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.mapper.UserMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.mapper.UserUpdateEventToUserMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -45,24 +45,24 @@ public class UpdateUserUseCase {
         }
     }
 
-    public void execute(UserUpdateEvent userUpdateEvent) {
+    public void execute(UserUpdateEventDto userUpdateEventDto) {
         try {
-            log.info("Updating user with id: {}", userUpdateEvent.getUserId());
-            Optional<User> existingUser = userPersistenceAdapter.findById(userUpdateEvent.getUserId());
+            log.info("Updating user with id: {}", userUpdateEventDto.getUserId());
+            Optional<User> existingUser = userPersistenceAdapter.findById(userUpdateEventDto.getUserId());
 
             if (existingUser.isPresent()) {
                 User user = existingUser.get();
-                UserUpdateEventToUserMapper.updateUser(userUpdateEvent, user);
+                UserUpdateEventToUserMapper.updateUser(userUpdateEventDto, user);
                 userPersistenceAdapter.save(user);
                 log.info("User updated successfully with id: {}", user.getId());
             } else {
-                throw new UserNotFoundException(userUpdateEvent.getUserId());
+                throw new UserNotFoundException(userUpdateEventDto.getUserId());
             }
         } catch (UserNotFoundException e) {
-            log.error("User with id {} not found.", userUpdateEvent.getUserId());
+            log.error("User with id {} not found.", userUpdateEventDto.getUserId());
             throw e;
         } catch (Exception e) {
-            log.error("Error occurred while updating user with id: {}", userUpdateEvent.getUserId(), e);
+            log.error("Error occurred while updating user with id: {}", userUpdateEventDto.getUserId(), e);
             throw e;
         }
     }

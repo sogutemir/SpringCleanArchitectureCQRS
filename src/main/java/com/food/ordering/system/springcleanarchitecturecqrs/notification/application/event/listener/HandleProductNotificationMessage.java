@@ -6,7 +6,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.usecase.crud.NotificationCreateUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.dto.crud.NotificationDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.dto.factory.NotificationDtoFactory;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto.ProductNotificationEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.dto.event.ProductNotificationEventDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
@@ -32,9 +32,9 @@ public class HandleProductNotificationMessage {
     public void listen(String productMessage, Acknowledgment acknowledgment) {
         try {
             log.info("Received product message from Kafka: {}", productMessage);
-            ProductNotificationEvent productNotificationEvent = objectMapper.readValue(productMessage, ProductNotificationEvent.class);
+            ProductNotificationEventDto productNotificationEventDto = objectMapper.readValue(productMessage, ProductNotificationEventDto.class);
 
-            NotificationDto notificationDto = NotificationDtoFactory.createProductNotificationDto(productNotificationEvent);
+            NotificationDto notificationDto = NotificationDtoFactory.createProductNotificationDto(productNotificationEventDto);
             notificationCreateUseCase.execute(notificationDto);
 
             acknowledgment.acknowledge();

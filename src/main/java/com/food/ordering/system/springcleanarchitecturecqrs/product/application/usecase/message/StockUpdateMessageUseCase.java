@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.message;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.producer.StockUpdateEventProducer;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto.StockUpdateEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.dto.event.StockUpdateEventDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +15,9 @@ public class StockUpdateMessageUseCase {
         this.stockUpdateEventProducer = stockUpdateEventProducer;
     }
 
-    public void execute(StockUpdateEvent stockUpdateEvent) {
-        log.info("Executing StockUpdateMessageUseCase for StockUpdateEvent: {}", stockUpdateEvent);
-        stockUpdateEventProducer.sendMessage(stockUpdateEvent);
+    public void execute(StockUpdateEventDto stockUpdateEventDto) {
+        log.info("Executing StockUpdateMessageUseCase for StockUpdateEvent: {}", stockUpdateEventDto);
+        stockUpdateEventProducer.sendMessage(stockUpdateEventDto);
         log.info("StockUpdateMessageUseCase execution completed.");
     }
 }

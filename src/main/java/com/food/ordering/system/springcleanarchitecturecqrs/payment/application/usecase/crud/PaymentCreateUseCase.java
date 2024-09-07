@@ -10,11 +10,11 @@ import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.dataaccess.adapter.PaymentPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.crud.PaymentDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.event.dto.PaymentCreatedEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.event.PaymentCreatedEventDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.mapper.PaymentDtoToPaymentEventMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.mapper.PaymentMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.message.StockUpdateMessageUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto.StockUpdateEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.dto.event.StockUpdateEventDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.message.SendUserUpdateEventUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.query.FindUserByIdUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
@@ -55,7 +55,7 @@ public class PaymentCreateUseCase {
         this.findOrderByIdUseCase = findOrderByIdUseCase;
     }
 
-    public PaymentCreatedEvent execute(PaymentDto paymentDTO) {
+    public PaymentCreatedEventDto execute(PaymentDto paymentDTO) {
         log.info("Payment create use case started. PaymentDTO: {}", paymentDTO);
 
         User user = findUserByIdUseCase.findUserEntityById(paymentDTO.getUserId());
@@ -68,7 +68,7 @@ public class PaymentCreateUseCase {
             sendOrderUpdateEventUseCase.execute(OrderUpdateEventToOrderMapper.toOrderUpdateEvent(order, OrderStatus.CANCELLED));
             paymentCreateMessageUseCase.execute(PaymentDtoToPaymentEventMapper.toEvent(paymentDTO));
             log.warn("Insufficient balance. Payment failed. Order id: {}", paymentDTO.getOrderId());
-            return new PaymentCreatedEvent(false, "Insufficient balance", null);
+            return new PaymentCreatedEventDto(false, "Insufficient balance", null);
         } else {
             Payment payment = PaymentMapper.toEntity(paymentDTO);
             payment.setAmount(totalAmount);
@@ -83,14 +83,14 @@ public class PaymentCreateUseCase {
             sendOrderUpdateEventUseCase.execute(OrderUpdateEventToOrderMapper.toOrderUpdateEvent(order, OrderStatus.APPROVED));
 
 
-            StockUpdateEvent stockUpdateEvent = new StockUpdateEvent(order.getId(), paymentDTO.getProductQuantities());
-            stockUpdateMessageUseCase.execute(stockUpdateEvent);
+            StockUpdateEventDto stockUpdateEventDto = new StockUpdateEventDto(order.getId(), paymentDTO.getProductQuantities());
+            stockUpdateMessageUseCase.execute(stockUpdateEventDto);
 
             paymentCreateMessageUseCase.execute(PaymentDtoToPaymentEventMapper.toEvent(paymentDTO));
 
             log.info("Payment completed successfully. Order id: {}", paymentDTO.getOrderId());
 
-            return new PaymentCreatedEvent(true, "Payment completed successfully.", PaymentMapper.toDTO(payment));
+            return new PaymentCreatedEventDto(true, "Payment completed successfully.", PaymentMapper.toDTO(payment));
         }
     }
 

@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.dto;
+package com.food.ordering.system.springcleanarchitecturecqrs.order.application.dto.event;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderEvent {
+public class OrderCreateEventDto {
     private Long orderId;
     private String status;
     private String message;
@@ -18,7 +18,7 @@ public class OrderEvent {
     private Long userId;
     private Map<Long, Integer> productQuantities;
 
-    public OrderEvent(Long orderId, BigDecimal totalAmount, Long userId, Map<Long, Integer> productQuantities) {
+    public OrderCreateEventDto(Long orderId, BigDecimal totalAmount, Long userId, Map<Long, Integer> productQuantities) {
         this.orderId = orderId;
         this.totalAmount = totalAmount;
         this.userId = userId;
