@@ -32,11 +32,11 @@ public class Notification extends BaseEntity {
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "payment_id")
+    @JoinColumn(name = "payment_id", nullable = true)
     private Payment payment;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = true)
     private Product product;
 
     @Enumerated(EnumType.STRING)
