@@ -2,13 +2,12 @@ package com.food.ordering.system.springcleanarchitecturecqrs.order.api.command;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.exception.OrderNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.service.command.OrderCommandService;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.crud.OrderDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 import java.util.Optional;
 
 @RestController

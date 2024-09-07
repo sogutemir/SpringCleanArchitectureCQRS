@@ -1,6 +1,6 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.event;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.PaymentDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.crud.PaymentDto;
 import lombok.*;
 
 @Getter

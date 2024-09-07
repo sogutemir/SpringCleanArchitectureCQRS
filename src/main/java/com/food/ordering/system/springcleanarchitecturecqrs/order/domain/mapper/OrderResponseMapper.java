@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper;
 
 
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.query.OrderResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.mapper.ProductResponseMapper;
 import java.util.stream.Collectors;

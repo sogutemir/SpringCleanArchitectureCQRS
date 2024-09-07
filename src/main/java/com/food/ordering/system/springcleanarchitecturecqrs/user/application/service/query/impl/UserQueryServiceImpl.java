@@ -3,7 +3,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.user.application.se
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.service.query.UserQueryService;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.query.FindUserByIdUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.query.FindUsersByEmailUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.query.UserResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

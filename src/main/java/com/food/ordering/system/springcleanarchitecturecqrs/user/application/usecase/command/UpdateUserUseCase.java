@@ -2,7 +2,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.user.application.us
 
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.exception.UserNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.crud.UserDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.event.UserUpdateEvent;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper.UserMapper;

@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.query;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.query.OrderResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderResponseMapper;
 import lombok.extern.slf4j.Slf4j;

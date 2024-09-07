@@ -1,6 +1,6 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto;
+package com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.query;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.query.ProductResponseDto;
 import lombok.*;
 
 import java.math.BigDecimal;

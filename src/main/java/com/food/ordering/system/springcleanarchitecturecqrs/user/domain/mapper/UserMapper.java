@@ -1,6 +1,6 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.crud.UserDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 
 public class UserMapper {

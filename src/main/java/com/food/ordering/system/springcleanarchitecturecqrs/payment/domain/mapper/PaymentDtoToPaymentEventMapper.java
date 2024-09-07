@@ -1,6 +1,6 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.mapper;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.PaymentDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.crud.PaymentDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.event.PaymentEvent;
 
 public class PaymentDtoToPaymentEventMapper {

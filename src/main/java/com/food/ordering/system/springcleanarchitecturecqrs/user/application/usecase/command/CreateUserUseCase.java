@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.crud.UserDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;

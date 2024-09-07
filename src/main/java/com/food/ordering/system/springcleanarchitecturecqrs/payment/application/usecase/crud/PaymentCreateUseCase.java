@@ -8,7 +8,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.helper.PaymentHelper;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.usecase.message.PaymentCreateMessageUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.dataaccess.adapter.PaymentPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.PaymentDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.crud.PaymentDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.event.PaymentEvent;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.mapper.PaymentDtoToPaymentEventMapper;

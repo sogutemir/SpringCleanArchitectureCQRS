@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.dataaccess.adapter.OrderPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.crud.OrderDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.validation.ProductValidationUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.helper.OrderCalculationHelper;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.mapper.OrderMapper;

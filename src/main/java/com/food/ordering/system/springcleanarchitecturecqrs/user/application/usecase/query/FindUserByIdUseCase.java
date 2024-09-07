@@ -2,7 +2,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.user.application.us
 
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.exception.UserNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.query.UserResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper.UserResponseMapper;
 import lombok.extern.slf4j.Slf4j;

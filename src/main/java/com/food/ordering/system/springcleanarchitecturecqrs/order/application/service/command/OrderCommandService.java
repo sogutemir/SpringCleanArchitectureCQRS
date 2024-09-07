@@ -1,8 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.order.application.service.command;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.crud.OrderDto;
 
-import java.util.Map;
 import java.util.Optional;
 
 public interface OrderCommandService {

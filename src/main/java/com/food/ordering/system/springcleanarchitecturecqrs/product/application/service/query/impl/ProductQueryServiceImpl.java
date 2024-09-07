@@ -3,7 +3,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.product.application
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.service.query.ProductQueryService;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.query.FindProductByIdUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.query.FindProductsByNameUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.query.ProductResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

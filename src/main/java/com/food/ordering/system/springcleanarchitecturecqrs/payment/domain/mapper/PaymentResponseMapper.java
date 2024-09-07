@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.mapper;
 
 
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.PaymentResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.query.PaymentResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;
 
 public class PaymentResponseMapper {

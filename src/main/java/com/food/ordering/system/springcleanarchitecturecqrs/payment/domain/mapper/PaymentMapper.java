@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.mapper;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
-import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.PaymentDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.crud.PaymentDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.entity.Payment;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 

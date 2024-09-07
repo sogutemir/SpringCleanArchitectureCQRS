@@ -1,6 +1,6 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.application.service.query;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.ProductResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.query.ProductResponseDto;
 
 import java.util.List;
 import java.util.Optional;

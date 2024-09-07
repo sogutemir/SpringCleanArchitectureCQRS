@@ -1,6 +1,6 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.user.application.service.command;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.UserDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.crud.UserDto;
 
 import java.util.Optional;
 

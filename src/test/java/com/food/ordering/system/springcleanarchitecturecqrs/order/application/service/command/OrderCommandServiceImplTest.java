@@ -4,7 +4,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.order.application.se
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command.CreateOrderUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command.DeleteOrderUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command.UpdateOrderUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.crud.OrderDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
