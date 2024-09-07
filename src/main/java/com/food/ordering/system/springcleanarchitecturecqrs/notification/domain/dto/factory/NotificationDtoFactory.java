@@ -3,6 +3,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.notification.domain
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.crud.NotificationDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.enums.NotificationStatus;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.event.PaymentEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.event.ProductNotificationEvent;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -23,5 +24,19 @@ public class NotificationDtoFactory {
         }
 
         return notificationBuilder.build();
+    }
+
+    public static NotificationDto createProductNotificationDto(ProductNotificationEvent productNotificationEvent) {
+        String message = productNotificationEvent.getMessage().isEmpty()
+                ? "Product purchased by: " + productNotificationEvent.getUserName()
+                : productNotificationEvent.getMessage() + ": " + productNotificationEvent.getProductId();
+
+        return NotificationDto.builder()
+                .productId(productNotificationEvent.getProductId())
+                .orderId(productNotificationEvent.getOrderId())
+                .userId(productNotificationEvent.getUserId())
+                .message(message)
+                .status(NotificationStatus.SENT)
+                .build();
     }
 }
