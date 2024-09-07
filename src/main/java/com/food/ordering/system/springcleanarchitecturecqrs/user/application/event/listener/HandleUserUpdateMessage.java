@@ -37,6 +37,4 @@ public class HandleUserUpdateMessage {
             kafkaListenerExceptionHandler.handleMessageProcessingException(e);
         }
     }
-
-
 }

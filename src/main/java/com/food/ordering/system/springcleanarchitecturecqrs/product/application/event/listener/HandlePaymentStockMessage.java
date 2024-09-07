@@ -42,5 +42,4 @@ public class HandlePaymentStockMessage {
             kafkaListenerExceptionHandler.handleMessageProcessingException(e);
         }
     }
-
 }

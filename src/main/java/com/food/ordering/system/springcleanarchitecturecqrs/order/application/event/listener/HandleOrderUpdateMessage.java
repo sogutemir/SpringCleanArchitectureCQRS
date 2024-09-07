@@ -38,5 +38,4 @@ public class HandleOrderUpdateMessage {
             kafkaListenerExceptionHandler.handleMessageProcessingException(e);
         }
     }
-
 }
