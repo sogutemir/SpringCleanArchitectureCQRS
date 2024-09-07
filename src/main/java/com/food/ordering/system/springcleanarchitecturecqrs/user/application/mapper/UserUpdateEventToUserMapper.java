@@ -1,8 +1,8 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper;
+package com.food.ordering.system.springcleanarchitecturecqrs.user.application.mapper;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.event.UserUpdateEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.event.model.UserUpdateEvent;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

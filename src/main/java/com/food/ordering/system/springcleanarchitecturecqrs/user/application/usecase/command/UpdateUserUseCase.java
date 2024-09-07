@@ -2,11 +2,11 @@ package com.food.ordering.system.springcleanarchitecturecqrs.user.application.us
 
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.exception.UserNotFoundException;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.crud.UserDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.dto.crud.UserDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.event.UserUpdateEvent;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper.UserMapper;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper.UserUpdateEventToUserMapper;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.event.model.UserUpdateEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.mapper.UserMapper;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.mapper.UserUpdateEventToUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

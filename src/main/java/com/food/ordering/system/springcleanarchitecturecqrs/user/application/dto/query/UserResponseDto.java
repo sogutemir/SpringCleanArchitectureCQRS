@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.query;
+package com.food.ordering.system.springcleanarchitecturecqrs.user.application.dto.query;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.query.NotificationResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.query.OrderResponseDto;

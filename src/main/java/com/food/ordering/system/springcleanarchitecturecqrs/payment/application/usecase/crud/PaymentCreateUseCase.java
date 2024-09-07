@@ -18,7 +18,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.event
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.message.SendUserUpdateEventUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.query.FindUserByIdUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper.UserUpdateEventToUserMapper;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.mapper.UserUpdateEventToUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

@@ -4,7 +4,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.user.application.ser
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command.CreateUserUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command.DeleteUserUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command.UpdateUserUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.crud.UserDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.dto.crud.UserDto;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

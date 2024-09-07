@@ -1,7 +1,7 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.user.domain.mapper;
+package com.food.ordering.system.springcleanarchitecturecqrs.user.application.mapper;
 
 
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.query.UserResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.dto.query.UserResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
 
 public class UserResponseMapper {

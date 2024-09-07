@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.user.domain.event;
+package com.food.ordering.system.springcleanarchitecturecqrs.user.application.event.model;
 
 import lombok.*;
 

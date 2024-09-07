@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.user.api.query;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.service.query.UserQueryService;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.query.UserResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.dto.query.UserResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
