@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.notification.api.query;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.service.query.NotificationQueryService;
-import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.NotificationResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.query.NotificationResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

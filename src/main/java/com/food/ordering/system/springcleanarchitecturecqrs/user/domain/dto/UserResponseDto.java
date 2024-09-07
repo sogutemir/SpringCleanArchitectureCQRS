@@ -1,6 +1,6 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto;
 
-import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.NotificationResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.query.NotificationResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.OrderResponseDto;
 import lombok.*;
 

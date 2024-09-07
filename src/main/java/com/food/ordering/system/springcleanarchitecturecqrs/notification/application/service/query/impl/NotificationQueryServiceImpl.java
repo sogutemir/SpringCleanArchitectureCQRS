@@ -2,7 +2,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.notification.applic
 
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.service.query.NotificationQueryService;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.usecase.query.NotificationFindByUserIdUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.NotificationResponseDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.query.NotificationResponseDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.entity.Notification;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.mapper.NotificationResponseMapper;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.notification.application.usecase.crud;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.dataaccess.adapter.NotificationPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.NotificationDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.crud.NotificationDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.mapper.NotificationMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
