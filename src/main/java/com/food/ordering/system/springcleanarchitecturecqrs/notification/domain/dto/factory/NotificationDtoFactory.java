@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class NotificationDtoFactory {
 
-    public NotificationDto createNotificationDto(PaymentEvent paymentEvent) {
+    public static NotificationDto createNotificationDto(PaymentEvent paymentEvent) {
         NotificationDto.NotificationDtoBuilder notificationBuilder = NotificationDto.builder()
                 .orderId(paymentEvent.getPaymentDTO().getOrderId())
                 .userId(paymentEvent.getPaymentDTO().getUserId());

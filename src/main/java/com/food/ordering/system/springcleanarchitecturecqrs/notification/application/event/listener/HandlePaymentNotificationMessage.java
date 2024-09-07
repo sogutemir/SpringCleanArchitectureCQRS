@@ -17,16 +17,13 @@ public class HandlePaymentNotificationMessage {
     private final NotificationCreateUseCase notificationCreateUseCase;
     private final ObjectMapper objectMapper;
     private final KafkaListenerExceptionHandler kafkaListenerExceptionHandler;
-    private final NotificationDtoFactory notificationDtoFactory;
 
     public HandlePaymentNotificationMessage(NotificationCreateUseCase notificationCreateUseCase,
                                             ObjectMapper objectMapper,
-                                            KafkaListenerExceptionHandler kafkaListenerExceptionHandler,
-                                            NotificationDtoFactory notificationDtoFactory) {
+                                            KafkaListenerExceptionHandler kafkaListenerExceptionHandler) {
         this.notificationCreateUseCase = notificationCreateUseCase;
         this.objectMapper = objectMapper;
         this.kafkaListenerExceptionHandler = kafkaListenerExceptionHandler;
-        this.notificationDtoFactory = notificationDtoFactory;
     }
 
     @KafkaListener(topics = "${spring.kafka.topic.payment-create}", groupId = "notification-group")
@@ -35,7 +32,7 @@ public class HandlePaymentNotificationMessage {
             log.info("Received payment message from Kafka: {}", paymentMessage);
             PaymentEvent paymentEvent = objectMapper.readValue(paymentMessage, PaymentEvent.class);
 
-            notificationCreateUseCase.execute(notificationDtoFactory.createNotificationDto(paymentEvent));
+            notificationCreateUseCase.execute(NotificationDtoFactory.createNotificationDto(paymentEvent));
 
         } catch (JsonProcessingException e) {
             kafkaListenerExceptionHandler.handleSerializationException(e);

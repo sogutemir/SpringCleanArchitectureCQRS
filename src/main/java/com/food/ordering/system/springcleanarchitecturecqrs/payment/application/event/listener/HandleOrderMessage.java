@@ -6,6 +6,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.event.OrderEvent;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.usecase.crud.PaymentCreateUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.crud.PaymentDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.payment.domain.dto.factory.PaymentDtoFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -30,12 +31,9 @@ public class HandleOrderMessage {
         try {
             log.info("Received order message from Kafka: {}", orderMessage);
             OrderEvent orderEvent = objectMapper.readValue(orderMessage, OrderEvent.class);
-            PaymentDto paymentDTO = PaymentDto.builder()
-                    .orderId(orderEvent.getOrderId())
-                    .userId(orderEvent.getUserId())
-                    .amount(orderEvent.getTotalAmount())
-                    .productQuantities(orderEvent.getProductQuantities())
-                    .build();
+
+            PaymentDto paymentDTO = PaymentDtoFactory.createPaymentDto(orderEvent);
+
             paymentCreateUseCase.execute(paymentDTO);
         } catch (JsonProcessingException e) {
             kafkaListenerExceptionHandler.handleSerializationException(e);
@@ -43,5 +41,4 @@ public class HandleOrderMessage {
             kafkaListenerExceptionHandler.handleMessageProcessingException(e);
         }
     }
-
 }
