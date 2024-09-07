@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.query;
+package com.food.ordering.system.springcleanarchitecturecqrs.product.application.dto.query;
 
 import lombok.*;
 

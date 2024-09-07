@@ -14,7 +14,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.mapper.PaymentDtoToPaymentEventMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.mapper.PaymentMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.message.StockUpdateMessageUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.event.StockUpdateEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto.StockUpdateEvent;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.message.SendUserUpdateEventUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.query.FindUserByIdUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;

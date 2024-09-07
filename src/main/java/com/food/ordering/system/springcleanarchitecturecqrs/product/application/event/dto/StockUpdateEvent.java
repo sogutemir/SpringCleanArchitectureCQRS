@@ -1,4 +1,4 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.product.domain.event;
+package com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto;
 
 import lombok.*;
 

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka.handler.KafkaListenerExceptionHandler;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.command.UpdateUserUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.application.event.model.UserUpdateEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.event.dto.UserUpdateEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;

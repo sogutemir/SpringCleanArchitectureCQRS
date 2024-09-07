@@ -4,7 +4,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.user.application.exc
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.dto.crud.UserDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.application.event.model.UserUpdateEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.event.dto.UserUpdateEvent;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.mapper.UserMapper;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.mapper.UserUpdateEventToUserMapper;
 import lombok.extern.slf4j.Slf4j;

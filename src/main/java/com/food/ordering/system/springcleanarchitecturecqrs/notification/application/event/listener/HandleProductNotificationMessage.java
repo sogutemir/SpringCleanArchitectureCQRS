@@ -6,7 +6,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.infrastructure.kafka
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.usecase.crud.NotificationCreateUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.crud.NotificationDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.domain.dto.factory.NotificationDtoFactory;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.event.ProductNotificationEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto.ProductNotificationEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.message;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.producer.ProductNotificationEventProducer;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.event.ProductNotificationEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto.ProductNotificationEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

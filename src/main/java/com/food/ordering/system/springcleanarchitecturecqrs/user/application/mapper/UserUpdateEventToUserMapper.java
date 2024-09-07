@@ -2,7 +2,7 @@ package com.food.ordering.system.springcleanarchitecturecqrs.user.application.ma
 
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.entity.Order;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.User;
-import com.food.ordering.system.springcleanarchitecturecqrs.user.application.event.model.UserUpdateEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.user.application.event.dto.UserUpdateEvent;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

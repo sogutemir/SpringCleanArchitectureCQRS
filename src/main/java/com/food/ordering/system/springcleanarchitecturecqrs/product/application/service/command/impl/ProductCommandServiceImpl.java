@@ -4,7 +4,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.product.application.
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.command.CreateProductUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.command.DeleteProductUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.command.UpdateProductUseCase;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.crud.ProductDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.dto.crud.ProductDto;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

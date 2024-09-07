@@ -1,7 +1,7 @@
-package com.food.ordering.system.springcleanarchitecturecqrs.product.domain.mapper;
+package com.food.ordering.system.springcleanarchitecturecqrs.product.application.mapper;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.event.ProductNotificationEvent;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto.ProductNotificationEvent;
 
 public class ProductNotificationEventMapper {
 

@@ -1,9 +1,9 @@
 package com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.command;
 
 import com.food.ordering.system.springcleanarchitecturecqrs.product.dataaccess.adapter.ProductPersistenceAdapter;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.crud.ProductDto;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.dto.crud.ProductDto;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entity.Product;
-import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.mapper.ProductMapper;
+import com.food.ordering.system.springcleanarchitecturecqrs.product.application.mapper.ProductMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
