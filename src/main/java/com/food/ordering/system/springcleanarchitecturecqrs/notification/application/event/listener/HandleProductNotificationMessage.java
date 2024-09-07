@@ -9,6 +9,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.notification.applica
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto.ProductNotificationEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -28,7 +29,7 @@ public class HandleProductNotificationMessage {
     }
 
     @KafkaListener(topics = "${spring.kafka.topic.product-notification}", groupId = "product-notification-group")
-    public void listen(String productMessage) {
+    public void listen(String productMessage, Acknowledgment acknowledgment) {
         try {
             log.info("Received product message from Kafka: {}", productMessage);
             ProductNotificationEvent productNotificationEvent = objectMapper.readValue(productMessage, ProductNotificationEvent.class);
@@ -36,6 +37,7 @@ public class HandleProductNotificationMessage {
             NotificationDto notificationDto = NotificationDtoFactory.createProductNotificationDto(productNotificationEvent);
             notificationCreateUseCase.execute(notificationDto);
 
+            acknowledgment.acknowledge();
         } catch (JsonProcessingException e) {
             kafkaListenerExceptionHandler.handleSerializationException(e);
         } catch (Exception e) {

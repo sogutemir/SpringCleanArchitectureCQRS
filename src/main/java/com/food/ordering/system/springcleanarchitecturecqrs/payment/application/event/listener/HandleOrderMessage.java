@@ -9,6 +9,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.
 import com.food.ordering.system.springcleanarchitecturecqrs.payment.application.dto.factory.PaymentDtoFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,7 +28,7 @@ public class HandleOrderMessage {
     }
 
     @KafkaListener(topics = "${spring.kafka.topic.order}", groupId = "payment-group")
-    public void listen(String orderMessage) {
+    public void listen(String orderMessage, Acknowledgment acknowledgment) {
         try {
             log.info("Received order message from Kafka: {}", orderMessage);
             OrderEvent orderEvent = objectMapper.readValue(orderMessage, OrderEvent.class);
@@ -35,6 +36,8 @@ public class HandleOrderMessage {
             PaymentDto paymentDTO = PaymentDtoFactory.createPaymentDto(orderEvent);
 
             paymentCreateUseCase.execute(paymentDTO);
+
+            acknowledgment.acknowledge();
         } catch (JsonProcessingException e) {
             kafkaListenerExceptionHandler.handleSerializationException(e);
         } catch (Exception e) {

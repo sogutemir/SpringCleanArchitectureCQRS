@@ -7,6 +7,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.product.application.
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.event.dto.StockUpdateEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -28,12 +29,13 @@ public class HandlePaymentStockMessage {
     }
 
     @KafkaListener(topics = "${spring.kafka.topic.stock-update}", groupId = "product-group")
-    public void listen(String stockMessage) {
+    public void listen(String stockMessage, Acknowledgment acknowledgment) {
         try {
             log.info("Received stock message from Kafka: {}", stockMessage);
             StockUpdateEvent stockUpdateEvent = objectMapper.readValue(stockMessage, StockUpdateEvent.class);
             List<Long> productIds = new ArrayList<>(stockUpdateEvent.getProductQuantities().keySet());
             stockUpdateUseCase.execute(productIds, stockUpdateEvent.getProductQuantities());
+            acknowledgment.acknowledge();
         } catch (JsonProcessingException e) {
             kafkaListenerExceptionHandler.handleSerializationException(e);
         } catch (Exception e) {

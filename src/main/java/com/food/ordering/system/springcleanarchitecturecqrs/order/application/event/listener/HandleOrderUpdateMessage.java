@@ -7,6 +7,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.order.application.us
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.event.dto.OrderUpdateEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -25,11 +26,12 @@ public class HandleOrderUpdateMessage {
     }
 
     @KafkaListener(topics = "${spring.kafka.topic.order-update}", groupId = "order-update-group")
-    public void listen(String orderUpdateMessage) {
+    public void listen(String orderUpdateMessage, Acknowledgment acknowledgment) {
         try {
             log.info("Received order update message from Kafka: {}", orderUpdateMessage);
             OrderUpdateEvent orderUpdateEvent = objectMapper.readValue(orderUpdateMessage, OrderUpdateEvent.class);
             updateOrderUseCase.execute(orderUpdateEvent.getOrderId(), orderUpdateEvent);
+            acknowledgment.acknowledge();
         } catch (JsonProcessingException e) {
             kafkaListenerExceptionHandler.handleSerializationException(e);
         } catch (Exception e) {

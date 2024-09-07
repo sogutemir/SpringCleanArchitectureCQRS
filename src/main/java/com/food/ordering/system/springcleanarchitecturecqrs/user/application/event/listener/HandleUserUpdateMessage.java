@@ -7,6 +7,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.user.application.use
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.event.dto.UserUpdateEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -24,11 +25,12 @@ public class HandleUserUpdateMessage {
     }
 
     @KafkaListener(topics = "${spring.kafka.topic.user-update}", groupId = "user-update-group")
-    public void listen(String userUpdateMessage) {
+    public void listen(String userUpdateMessage, Acknowledgment acknowledgment) {
         try {
             log.info("Received user update message from Kafka: {}", userUpdateMessage);
             UserUpdateEvent userUpdateEvent = objectMapper.readValue(userUpdateMessage, UserUpdateEvent.class);
             updateUserUseCase.execute(userUpdateEvent);
+            acknowledgment.acknowledge();
         } catch (JsonProcessingException e) {
             kafkaListenerExceptionHandler.handleSerializationException(e);
         } catch (Exception e) {
