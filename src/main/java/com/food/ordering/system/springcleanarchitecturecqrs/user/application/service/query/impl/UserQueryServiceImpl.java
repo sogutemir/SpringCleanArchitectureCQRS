@@ -4,13 +4,11 @@ import com.food.ordering.system.springcleanarchitecturecqrs.user.application.ser
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.query.FindUserByIdUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.usecase.query.FindUsersByEmailUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.dto.query.UserResponseDto;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 @Service
 public class UserQueryServiceImpl implements UserQueryService {
 
@@ -26,13 +24,11 @@ public class UserQueryServiceImpl implements UserQueryService {
 
     @Override
     public Optional<UserResponseDto> findUserById(Long id) {
-        log.info("Finding user with id: {}", id);
         return findUserByIdUseCase.execute(id);
     }
 
     @Override
     public List<UserResponseDto> findUsersByEmail(String email) {
-        log.info("Finding users with email: {}", email);
         return findUsersByEmailUseCase.execute(email);
     }
 }

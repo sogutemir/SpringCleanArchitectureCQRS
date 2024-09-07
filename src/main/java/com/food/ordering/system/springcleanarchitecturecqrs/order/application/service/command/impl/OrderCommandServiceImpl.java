@@ -5,12 +5,10 @@ import com.food.ordering.system.springcleanarchitecturecqrs.order.application.us
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command.DeleteOrderUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.command.UpdateOrderUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.crud.OrderDto;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Slf4j
 @Service
 public class OrderCommandServiceImpl implements OrderCommandService {
 
@@ -29,21 +27,18 @@ public class OrderCommandServiceImpl implements OrderCommandService {
 
     @Override
     public OrderDto createOrder(OrderDto orderDTO) {
-        log.info("Creating a new order for userId: {}", orderDTO.getUserId());
         return createOrderUseCase.execute(orderDTO, orderDTO.getProductQuantities());
     }
 
 
     @Override
     public Optional<OrderDto> updateOrder(Long id, OrderDto orderDTO) {
-        log.info("Updating order with id: {}", id);
         return updateOrderUseCase.execute(id, orderDTO);
     }
 
 
     @Override
     public void deleteOrder(Long id) {
-        log.info("Deleting order with id: {}", id);
         deleteOrderUseCase.execute(id);
     }
 }

@@ -4,13 +4,11 @@ import com.food.ordering.system.springcleanarchitecturecqrs.product.application.
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.query.FindProductByIdUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.usecase.query.FindProductsByNameUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.dto.query.ProductResponseDto;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 @Service
 public class ProductQueryServiceImpl implements ProductQueryService {
 
@@ -26,13 +24,11 @@ public class ProductQueryServiceImpl implements ProductQueryService {
 
     @Override
     public Optional<ProductResponseDto> findProductById(Long id) {
-        log.info("Finding product with id: {}", id);
         return findProductByIdUseCase.execute(id);
     }
 
     @Override
     public List<ProductResponseDto> findProductsByName(String name) {
-        log.info("Finding products with name containing: {}", name);
         return findProductsByNameUseCase.execute(name);
     }
 }

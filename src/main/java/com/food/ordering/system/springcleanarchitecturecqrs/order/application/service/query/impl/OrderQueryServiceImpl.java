@@ -4,13 +4,11 @@ import com.food.ordering.system.springcleanarchitecturecqrs.order.application.se
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.query.FindOrderByIdUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.application.usecase.query.FindOrdersByUserIdUseCase;
 import com.food.ordering.system.springcleanarchitecturecqrs.order.domain.dto.query.OrderResponseDto;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 @Service
 public class OrderQueryServiceImpl implements OrderQueryService {
 
@@ -26,13 +24,11 @@ public class OrderQueryServiceImpl implements OrderQueryService {
 
     @Override
     public Optional<OrderResponseDto> findOrderById(Long id) {
-        log.info("Finding order with id: {}", id);
         return findOrderByIdUseCase.execute(id);
     }
 
     @Override
     public List<OrderResponseDto> findOrdersByUserId(Long userId) {
-        log.info("Finding orders for user with id: {}", userId);
         return findOrdersByUserIdUseCase.execute(userId);
     }
 }
