@@ -4,8 +4,10 @@ import com.food.ordering.system.springcleanarchitecturecqrs.user.application.exc
 import com.food.ordering.system.springcleanarchitecturecqrs.user.dataaccess.adapter.UserPersistenceAdapter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
+@Transactional
 @Component
 public class DeleteUserUseCase {
 

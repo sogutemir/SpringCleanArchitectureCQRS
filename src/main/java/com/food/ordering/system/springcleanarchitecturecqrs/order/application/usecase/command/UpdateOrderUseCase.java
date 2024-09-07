@@ -13,6 +13,7 @@ import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entit
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @Component
+@Transactional
 public class UpdateOrderUseCase {
 
     private final OrderPersistenceAdapter orderPersistenceAdapter;

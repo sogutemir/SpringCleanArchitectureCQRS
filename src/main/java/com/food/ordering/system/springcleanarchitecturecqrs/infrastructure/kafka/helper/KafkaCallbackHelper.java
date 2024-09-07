@@ -21,9 +21,9 @@ public class KafkaCallbackHelper {
         this.retryTemplate = retryTemplate;
     }
 
-    public <T> void sendMessage(KafkaTemplate<String, Object> kafkaTemplate, String topic, T message) {
+    public <T> void sendMessage(KafkaTemplate<String, Object> kafkaTemplate, String topic, T message, String partitionKey) {
         retryTemplate.execute(retryContext -> {
-            CompletableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, message);
+            CompletableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, partitionKey, message);
 
             future.thenAccept(result -> log.info("Message sent successfully: {}", result))
                     .exceptionally(ex -> {

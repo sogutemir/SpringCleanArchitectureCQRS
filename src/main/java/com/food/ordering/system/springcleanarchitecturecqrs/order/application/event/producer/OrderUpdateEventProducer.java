@@ -35,7 +35,7 @@ public class OrderUpdateEventProducer {
         try {
             log.info("Sending orderUpdate event: {}", orderUpdateEventDto);
             String orderUpdateJson = objectMapper.writeValueAsString(orderUpdateEventDto);
-            kafkaCallbackHelper.sendMessage(kafkaTemplate, kafkaConfig.getOrderUpdateTopic(), orderUpdateJson);
+            kafkaCallbackHelper.sendMessage(kafkaTemplate, kafkaConfig.getOrderUpdateTopic(), orderUpdateJson, orderUpdateEventDto.getOrderId().toString());
         } catch (JsonProcessingException e) {
             kafkaProducerExceptionHandler.handleSerializationException(e);
         } catch (Exception e) {

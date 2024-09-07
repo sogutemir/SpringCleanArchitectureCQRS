@@ -35,7 +35,8 @@ public class ProductNotificationEventProducer {
         try {
             log.info("Sending ProductNotificationEvent event: {}", productNotificationEventDto);
             String productNotificationEventJson = objectMapper.writeValueAsString(productNotificationEventDto);
-            kafkaCallbackHelper.sendMessage(kafkaTemplate, kafkaConfig.getProductNotificationTopic(), productNotificationEventJson);
+            kafkaCallbackHelper.sendMessage(kafkaTemplate, kafkaConfig.getProductNotificationTopic(),
+                    productNotificationEventJson, productNotificationEventDto.getProductId().toString());
         } catch (JsonProcessingException e) {
             kafkaProducerExceptionHandler.handleSerializationException(e);
         } catch (Exception e) {

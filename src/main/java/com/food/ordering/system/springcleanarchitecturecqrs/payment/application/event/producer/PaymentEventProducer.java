@@ -35,7 +35,8 @@ public class PaymentEventProducer {
         try {
             log.info("Sending PaymentEvent event: {}", paymentCreatedEventDto);
             String paymentEventJson = objectMapper.writeValueAsString(paymentCreatedEventDto);
-            kafkaCallbackHelper.sendMessage(kafkaTemplate, kafkaConfig.getPaymentCreateTopic(), paymentEventJson);
+            kafkaCallbackHelper.sendMessage(kafkaTemplate, kafkaConfig.getPaymentCreateTopic(),
+                    paymentEventJson, paymentCreatedEventDto.getPaymentDTO().getOrderId().toString());
         } catch (JsonProcessingException e) {
             kafkaProducerExceptionHandler.handleSerializationException(e);
         } catch (Exception e) {

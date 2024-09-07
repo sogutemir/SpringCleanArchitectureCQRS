@@ -5,9 +5,11 @@ import com.food.ordering.system.springcleanarchitecturecqrs.notification.applica
 import com.food.ordering.system.springcleanarchitecturecqrs.notification.application.mapper.NotificationMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Transactional
 @Slf4j
+@Component
 public class NotificationCreateUseCase {
 
     private final NotificationPersistenceAdapter notificationPersistenceAdapter;

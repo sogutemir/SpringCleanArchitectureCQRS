@@ -7,10 +7,12 @@ import com.food.ordering.system.springcleanarchitecturecqrs.product.domain.entit
 import com.food.ordering.system.springcleanarchitecturecqrs.product.application.mapper.ProductMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Slf4j
+@Transactional
 @Component
 public class UpdateProductUseCase {
 

@@ -35,7 +35,8 @@ public class StockUpdateEventProducer {
         try {
             log.info("Sending StockUpdateEvent event: {}", stockUpdateEventDto);
             String stockUpdateEventJson = objectMapper.writeValueAsString(stockUpdateEventDto);
-            kafkaCallbackHelper.sendMessage(kafkaTemplate, kafkaConfig.getStockUpdateTopic(), stockUpdateEventJson);
+            kafkaCallbackHelper.sendMessage(kafkaTemplate, kafkaConfig.getStockUpdateTopic(), stockUpdateEventJson,
+                    stockUpdateEventDto.getOrderId().toString());
         } catch (JsonProcessingException e) {
             kafkaProducerExceptionHandler.handleSerializationException(e);
         } catch (Exception e) {

@@ -6,9 +6,11 @@ import com.food.ordering.system.springcleanarchitecturecqrs.user.domain.entity.U
 import com.food.ordering.system.springcleanarchitecturecqrs.user.application.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Slf4j
+@Transactional
 @Component
 public class CreateUserUseCase {
 

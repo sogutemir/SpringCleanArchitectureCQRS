@@ -35,7 +35,8 @@ public class UserUpdateEventProducer {
         try {
             log.info("Sending userUpdate event: {}", userUpdateEventDto);
             String userUpdateJson = objectMapper.writeValueAsString(userUpdateEventDto);
-            kafkaCallbackHelper.sendMessage(kafkaTemplate, kafkaConfig.getUserUpdateTopic(), userUpdateJson);
+            kafkaCallbackHelper.sendMessage(kafkaTemplate, kafkaConfig.getUserUpdateTopic(), userUpdateJson,
+                    userUpdateEventDto.getUserId().toString());
         } catch (JsonProcessingException e) {
             kafkaProducerExceptionHandler.handleSerializationException(e);
         } catch (Exception e) {
