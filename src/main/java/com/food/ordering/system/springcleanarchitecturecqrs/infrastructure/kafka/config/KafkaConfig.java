@@ -35,4 +35,7 @@ public class KafkaConfig {
     @Value("${spring.kafka.topic.listener-exception}")
     private String kafkaListenerExceptionTopic;
 
+    @Value("${spring.kafka.topic.dead-letter-queue}")
+    private String deadLetterQueueTopic;
+
 }

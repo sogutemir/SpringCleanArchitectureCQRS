@@ -32,9 +32,9 @@ public class HandleUserUpdateMessage {
             updateUserUseCase.execute(userUpdateEventDto);
             acknowledgment.acknowledge();
         } catch (JsonProcessingException e) {
-            kafkaListenerExceptionHandler.handleSerializationException(e);
+            kafkaListenerExceptionHandler.handleSerializationException("${spring.kafka.topic.user-update}", userUpdateMessage, e);
         } catch (Exception e) {
-            kafkaListenerExceptionHandler.handleMessageProcessingException(e);
+            kafkaListenerExceptionHandler.handleMessageProcessingException("${spring.kafka.topic.user-update}", userUpdateMessage, e);
         }
     }
 }

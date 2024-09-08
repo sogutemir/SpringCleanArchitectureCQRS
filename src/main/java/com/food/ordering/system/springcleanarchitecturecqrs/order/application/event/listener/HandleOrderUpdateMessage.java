@@ -33,9 +33,9 @@ public class HandleOrderUpdateMessage {
             updateOrderUseCase.execute(orderUpdateEventDto.getOrderId(), orderUpdateEventDto);
             acknowledgment.acknowledge();
         } catch (JsonProcessingException e) {
-            kafkaListenerExceptionHandler.handleSerializationException(e);
+            kafkaListenerExceptionHandler.handleSerializationException("${spring.kafka.topic.order-update}", orderUpdateMessage, e);
         } catch (Exception e) {
-            kafkaListenerExceptionHandler.handleMessageProcessingException(e);
+            kafkaListenerExceptionHandler.handleMessageProcessingException("${spring.kafka.topic.order-update}", orderUpdateMessage, e);
         }
     }
 }

@@ -39,9 +39,9 @@ public class HandleOrderMessage {
 
             acknowledgment.acknowledge();
         } catch (JsonProcessingException e) {
-            kafkaListenerExceptionHandler.handleSerializationException(e);
+            kafkaListenerExceptionHandler.handleSerializationException("${spring.kafka.topic.order}", orderMessage, e);
         } catch (Exception e) {
-            kafkaListenerExceptionHandler.handleMessageProcessingException(e);
+            kafkaListenerExceptionHandler.handleMessageProcessingException("${spring.kafka.topic.order}", orderMessage, e);
         }
     }
 }

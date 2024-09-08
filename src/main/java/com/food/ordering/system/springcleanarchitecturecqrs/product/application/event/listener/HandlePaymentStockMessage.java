@@ -37,9 +37,9 @@ public class HandlePaymentStockMessage {
             stockUpdateUseCase.execute(productIds, stockUpdateEventDto.getProductQuantities());
             acknowledgment.acknowledge();
         } catch (JsonProcessingException e) {
-            kafkaListenerExceptionHandler.handleSerializationException(e);
+            kafkaListenerExceptionHandler.handleSerializationException("${spring.kafka.topic.stock-update}", stockMessage, e);
         } catch (Exception e) {
-            kafkaListenerExceptionHandler.handleMessageProcessingException(e);
+            kafkaListenerExceptionHandler.handleMessageProcessingException("${spring.kafka.topic.stock-update}", stockMessage, e);
         }
     }
 }

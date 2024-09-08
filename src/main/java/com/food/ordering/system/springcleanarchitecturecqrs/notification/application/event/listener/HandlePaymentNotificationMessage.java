@@ -49,9 +49,9 @@ public class HandlePaymentNotificationMessage {
             notificationCreateUseCase.execute(NotificationDtoFactory.createNotificationDto(paymentCreatedEventDto));
             acknowledgment.acknowledge();
         } catch (JsonProcessingException e) {
-            kafkaListenerExceptionHandler.handleSerializationException(e);
+            kafkaListenerExceptionHandler.handleSerializationException("${spring.kafka.topic.payment-create}", paymentMessage, e);
         } catch (Exception e) {
-            kafkaListenerExceptionHandler.handleMessageProcessingException(e);
+            kafkaListenerExceptionHandler.handleMessageProcessingException("${spring.kafka.topic.payment-create}", paymentMessage, e);
         }
     }
 }
